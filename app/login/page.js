@@ -9,11 +9,14 @@ import { IoEyeOutline } from "react-icons/io5";
 import { VscEyeClosed } from "react-icons/vsc";
 import { IoLogoFacebook } from "react-icons/io5";
 import { useAuth } from "../../context/authContext";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
-  const { loading, logIn, signInWithGoogle, signinWithFacebook } = useAuth();
   const [show, setShow] = useState(false);
+  const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
+  const { loading, logIn, signInWithGoogle, signinWithFacebook } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -32,8 +35,35 @@ const Page = () => {
       return;
     }
 
-    // console.log("serrrrrrr", email, password);
+    toast.success("Login successful!");
+    if (!error) {
+      router.push("/");
+    }
   };
+
+  const handleGooglePopup = async () => {
+    const { error } = await signInWithGoogle();
+
+    if (error) {
+      toast.error(error);
+      return;
+    }
+
+    toast.success("Login successful!");
+    router.push("/");
+  };
+
+  const handleFacebookPopup = async () => {
+    const { error } = await signinWithFacebook();
+
+    if (error) {
+      toast.error(error);
+    }
+
+    toast.success("Login successful!");
+    router.push("/");
+  };
+
   return (
     <div className="mt-10 mx-auto max-w-lg w-full border-2 border-gray-100 rounded-[10px] shadow-sm">
       <div className="p-4 ">
@@ -44,14 +74,14 @@ const Page = () => {
 
         <div className="flex flex-col md:flex-row justify-center gap-10 w-full mt-8">
           <button
-            onClick={() => signInWithGoogle()}
+            onClick={handleGooglePopup}
             className="flex gap-3 cursor-pointer items-center font-bold text-sm text-black/70 border border-gray-300 rounded-[6px] p-[16px]"
           >
             <FcGoogle size={20} />
             Login with Google
           </button>
           <button
-            onClick={() => signinWithFacebook()}
+            onClick={handleFacebookPopup}
             className="flex gap-3 cursor-pointer items-center font-bold text-sm text-black/70 border border-gray-300 rounded-[6px] p-[16px]"
           >
             <IoLogoFacebook size={20} className="text-[#0064E0]" />

@@ -3,14 +3,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import InviteModal from "../inviteModal";
 import { IoMenu } from "react-icons/io5";
 import { IoMdMail } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { AiOutlineShop } from "react-icons/ai";
-import { IoMdPersonAdd } from "react-icons/io";
+import AccountCenter from "./accountCenter";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
+
   const navList = [
     { name: "Home", path: "/" },
     { name: "About Us", path: "/about-us" },
@@ -19,16 +21,21 @@ const Header = () => {
 
   return (
     <div>
-      <div className="flex flex-col md:flex-row fixed top-0 left-0 z-40 w-full bg-white justify-between items-center px-5 lg:px-10 py-3 gap-3 md:gap-0">
-        <Link href={"/"}>
-          <Image
-            width={500}
-            height={60}
-            src={"/images/company-logo.png"}
-            alt="It Agama Logo"
-            className="w-45 lg:w-60 h-full object-cover "
-          />
-        </Link>
+      <div className="flex flex-col md:flex-row fixed top-0 left-0 z-40 w-full bg-white justify-around lg:justify-between items-center px-5 lg:px-10 py-3 gap-3 md:gap-4">
+        <div className="flex justify-between w-full lg:w-auto">
+          <Link href={"/"}>
+            <Image
+              width={500}
+              height={60}
+              src={"/images/company-logo.png"}
+              alt="It Agama Logo"
+              className="w-48 lg:w-60 h-full object-cover "
+            />
+          </Link>
+          <div className="block md:hidden">
+            <AccountCenter />
+          </div>
+        </div>
 
         <div className="hidden lg:block">
           <button className="flex cursor-pointer items-center gap-4 border py-2.5 px-4 outline-[#1DBF74] text-[15px] font-bold rounded-sm text-[#1DBF74]">
@@ -36,6 +43,7 @@ const Header = () => {
             Visit Online Mall
           </button>
         </div>
+
         <div className="hidden lg:block">
           <div className="flex gap-5 text-xl font-bold">
             {navList.map((nav, idx) => (
@@ -49,25 +57,19 @@ const Header = () => {
             ))}
           </div>
         </div>
-        <div className="hidden lg:block">
-          <div className="flex gap-4">
-            <Link
-              href="/login"
-              className="text-[18px] cursor-pointer font-bold px-5 py-2.5 rounded-sm "
-            >
-              Log in
-            </Link>
-            <button className="text-[16px] px-7 cursor-pointer py-2.5 rounded-sm bg-[#1DBF74] font-bold text-white">
-              Get Started
-            </button>
-          </div>
+
+        <div className="hidden md:block">
+          {/* profile // Account center component*/}
+          <AccountCenter />
         </div>
 
-        <div className="block lg:hidden w-full md:w-[50%]">
+        <div className="block lg:hidden w-full md:w-[5%]">
           <div className="flex justify-between items-center w-full">
-            <div className="flex justify-between w-[50%]">
-              <IoMdPersonAdd size={25} />
-              <IoMdMail size={25} />
+            <div className="block md:hidden w-[50%]">
+              <div className="flex justify-between w-full">
+                <InviteModal />
+                <IoMdMail size={25} />
+              </div>
             </div>
 
             <div>

@@ -71,12 +71,12 @@ export function AuthProvider({ children }) {
 
       if (error) return { error };
 
-      if (data?.token && data?.user) {
-        persist(data.user, data.token);
-        return { error: null, user: data.user };
+      if (data?.user && data?.access_token) {
+        persist(data.user, data.access_token);
+        return { error: null, user: data.user, token: data.access_token };
       }
 
-      return { error: "Invalid response from server" };
+      return { error: "Login failed. Please try again." };
     },
     [persist],
   );
@@ -92,19 +92,29 @@ export function AuthProvider({ children }) {
         last_name,
         first_name,
       });
-      if (error) return error;
-      if (data?.token && data?.user) {
-        persist(data?.user, data.token);
-        return { error: null };
+
+      if (error) {
+        return { error, data: null };
       }
-      return { error: "Invalid response" };
+
+      if (data?.user && (data.token || data?.access_token)) {
+        const token = data.token || data.access_token;
+        persist(data?.user, token);
+        return { error: null, data };
+      }
+
+      if (data) {
+        return { error: data, data: null };
+      }
+
+      return { error: "Invalid response", data: null };
     },
     [persist],
   );
 
   // Logout
 
-  const logOut = useCallback(() => {
+  const clearAuth = useCallback(() => {
     try {
       localStorage.removeItem(STORAGE_KEY);
       localStorage.removeItem("token");
@@ -117,15 +127,44 @@ export function AuthProvider({ children }) {
     router.push("/login");
   }, [router]);
 
+  const logout = useCallback(() => {
+    clearAuth();
+  }, [clearAuth]);
+
   // POP Up with GOOGLE
-  const signInWithGoogle = () => {
-    setLoading(true);
-    return signInWithPopup(auth, googleProvider);
+
+  const signInWithGoogle = async () => {
+    try {
+      setLoading(true);
+
+      const result = await signInWithPopup(auth, googleProvider);
+      const token = await result.user.getIdToken();
+      persist(result.user, token);
+
+      return { user: result.user, token };
+    } catch (error) {
+      return { error: error.message };
+    } finally {
+      setLoading(false);
+    }
   };
+
   // POP Up with FACEBOOK
-  const signinWithFacebook = () => {
-    setLoading(true);
-    return signInWithPopup(auth, fbAuthProvider);
+
+  const signinWithFacebook = async () => {
+    try {
+      setLoading(true);
+
+      const result = await signInWithPopup(auth, fbAuthProvider);
+      const token = await result.user.getIdToken();
+      persist(result.user, token);
+
+      return { user: result.user, token };
+    } catch (error) {
+      return { error: error.message };
+    } finally {
+      setLoading(false);
+    }
   };
 
   const value = {
@@ -134,9 +173,10 @@ export function AuthProvider({ children }) {
     loading,
     isInitialized,
     logIn,
-    logOut,
+    logout,
     setUser,
     register,
+    clearAuth,
     signInWithGoogle,
     signinWithFacebook,
   };

@@ -4,6 +4,7 @@ import Footer from "./components/footer/footer";
 import "./globals.css";
 import { AuthProvider } from "@/context/authContext";
 import { Suspense } from "react";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,6 +39,7 @@ export default function RootLayout({ children }) {
             }
           >
             <Header />
+            <Toaster position="top-center" />
             <main className="flex-1">{children}</main>
           </Suspense>
           <Footer />
