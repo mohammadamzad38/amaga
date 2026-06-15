@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import toast from "react-hot-toast";
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { MdOutlineMail } from "react-icons/md";
@@ -9,18 +10,20 @@ import { IoEyeOutline } from "react-icons/io5";
 import { VscEyeClosed } from "react-icons/vsc";
 import { IoLogoFacebook } from "react-icons/io5";
 import { useAuth } from "../../context/authContext";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Page = () => {
-  const [show, setShow] = useState(false);
   const router = useRouter();
+  const searchPerams = useSearchParams();
+  const [show, setShow] = useState(false);
+  const redirect = searchPerams.get("redirect");
   const [errorMessage, setErrorMessage] = useState("");
   const { loading, logIn, signInWithGoogle, signinWithFacebook } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMessage("");
+
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
@@ -39,6 +42,12 @@ const Page = () => {
     if (!error) {
       router.push("/");
     }
+
+    if (redirect) {
+      router.push(redirect);
+    } else {
+      router.push("/");
+    }
   };
 
   const handleGooglePopup = async () => {
@@ -50,7 +59,11 @@ const Page = () => {
     }
 
     toast.success("Login successful!");
-    router.push("/");
+    if (redirect) {
+      router.push(redirect);
+    } else {
+      router.push("/");
+    }
   };
 
   const handleFacebookPopup = async () => {
@@ -61,7 +74,11 @@ const Page = () => {
     }
 
     toast.success("Login successful!");
-    router.push("/");
+    if (redirect) {
+      router.push(redirect);
+    } else {
+      router.push("/");
+    }
   };
 
   return (

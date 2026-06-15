@@ -1,14 +1,21 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Review from "../../components/review";
 import { IoChevronDown } from "react-icons/io5";
-import postData from "../../jsonData/recentPost";
-// import { IoShareSocialOutline } from "react-icons/io5";
+import { useData } from "@/context/DataContext";
 import SocialShare from "../socialShare/socialShare";
 
-const Post = ({ title }) => {
-  const [machine, setMachine] = useState();
+const Post = ({ title, type = "fiber", mode = "recent" }) => {
+  const [select, setSelect] = useState(type);
+  const { posts, getAllPosts } = useData();
+
+  useEffect(() => {
+    getAllPosts(select, mode);
+  }, [select, mode, getAllPosts]);
+
   return (
     <div className="pb-20 pt-12.5">
       <div className="flex items-center justify-between pb-7.5">
@@ -16,38 +23,48 @@ const Post = ({ title }) => {
 
         <div className="relative w-30 md:w-50">
           <select
-            value={machine}
-            onChange={(e) => setMachine(e.target.value)}
+            value={select}
+            onChange={(e) => setSelect(e.target.value)}
             className="w-full appearance-none border text-sm md:text-base border-gray-400 px-4 py-2 rounded-lg outline-none bg-white"
           >
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
-            <option value="option4">Option 4</option>
+            <option value="fiber">Fiber</option>
+            <option value="machine">Machinery</option>
+            <option value="yarn">Yarn</option>
+            <option value="textile">Fabric</option>
+            <option value="buyer-post">Buy</option>
+            <option value="portfolio">Designer</option>
+            <option value="consultant">Consultant</option>
+            <option value="job">Job</option>
+            <option value="garment">Garment</option>
+            <option value="market-knowledge">Knowledge</option>
+            <option value="logistic">Logistic</option>
           </select>
 
           <IoChevronDown className="absolute top-1/2 right-4 -translate-y-1/2 text-gray-500 pointer-events-none" />
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-        {postData.slice(0, 4).map((data, idx) => (
+        {posts?.map((data) => (
           <div
-            key={idx}
+            key={data.id}
             className="w-full max-w-sm  flex flex-col bg-[#F6F6F6] shadow-xl px-3.75 py-6.25"
           >
             <div className="flex justify-between items-center">
               <div>
                 <div className="flex items-center gap-3">
                   <Image
-                    src={data.profilePicture}
-                    alt={data.name}
+                    src={"/icon/vector.jpg"}
+                    alt={data.name || "alt"}
                     width={45}
                     height={45}
                     className="rounded-full object-cover w-8 h-8 "
                   />
-                  <button className="cursor-pointer font-bold text-sm line-clamp-1">
-                    {data.name}
-                  </button>
+                  <Link
+                    href=""
+                    className="cursor-pointer font-bold text-sm line-clamp-1"
+                  >
+                    {data.name || "Supplier"}
+                  </Link>
                 </div>
                 <p className="text-xs leading-none ml-11 text-gray-500">
                   {data.postHour}
@@ -62,32 +79,26 @@ const Post = ({ title }) => {
 
             <div className="w-full h-60 overflow-hidden rounded-xl mt-8">
               <Image
-                src={data.image}
+                src={"/icon/vector.jpg"}
                 alt="product"
                 width={500}
                 height={300}
-                className="w-full h-full object-cover"
               />
             </div>
 
             <div className="space-y-2 text-sm md:text-base font-bold mt-3">
-              <p className="line-clamp-1">Fiber: {data.fiber}</p>
+              <p className="line-clamp-2">Ref No: {data.ref_no}</p>
+              <p className="line-clamp-1">Grade: {data.grade}</p>
+              <p className="line-clamp-1">Staple: {data.staple}</p>
               <p className="line-clamp-1">Origin: {data.origin}</p>
-              <p className="line-clamp-1">Price: ${data.price}</p>
-              <p className="line-clamp-1">Qty: {data.quantity}</p>
-              <p className="line-clamp-1">Yarn: {data.yarn_count}</p>
-              <p className="line-clamp-1">Quality: {data.quality}</p>
-              <p className="line-clamp-1">Price: {data.price}</p>
+              <p className="line-clamp-1">Mic: {data.mic}</p>
+              <p className="line-clamp-1">GPT: {data.gpt}</p>
+              <p className="line-clamp-1">Comment: {data.comment}</p>
             </div>
 
             <div className="flex items-center justify-between text-sm mt-3 mb-8">
-              <p className="text-yellow-500 font-semibold">
-                ⭐ {data.review} Reviews
-              </p>
+              <Review />
 
-              {/* <button className="flex cursor-pointer font-bold text-[#1DBF74] items-center gap-2">
-                <IoShareSocialOutline size={20} />
-              </button> */}
               <SocialShare />
             </div>
 

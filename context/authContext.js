@@ -1,8 +1,9 @@
 "use client";
 
-import { signIn } from "@/lib/api";
 import { signUp } from "@/lib/api";
+import { supplierInfo } from "../lib/api";
 import { useRouter } from "next/navigation";
+import { allPost, signIn } from "@/lib/api";
 import auth from "../app/firebase/firebase.init";
 import {
   signInWithPopup,
@@ -36,10 +37,10 @@ const storedAuth = getStoredAuth();
 export function AuthProvider({ children }) {
   const router = useRouter();
 
+  const [isInitialized] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(storedAuth.user);
   const [token, setToken] = useState(storedAuth.token);
-  const [loading, setLoading] = useState(false);
-  const [isInitialized] = useState(true);
 
   const persist = useCallback((userData, authToken) => {
     const payload = { user: userData, token: authToken };
@@ -55,7 +56,7 @@ export function AuthProvider({ children }) {
     setToken(authToken);
   }, []);
 
-  // Login Account
+  // Login Account ?>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   const logIn = useCallback(
     async ({ email, password }) => {
@@ -81,7 +82,7 @@ export function AuthProvider({ children }) {
     [persist],
   );
 
-  // Register Account
+  // Register Account >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   const register = useCallback(
     async ({ email, company_name, password, last_name, first_name }) => {
@@ -112,7 +113,7 @@ export function AuthProvider({ children }) {
     [persist],
   );
 
-  // Logout
+  // Logout  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   const clearAuth = useCallback(() => {
     try {
@@ -131,7 +132,7 @@ export function AuthProvider({ children }) {
     clearAuth();
   }, [clearAuth]);
 
-  // POP Up with GOOGLE
+  // POP Up with GOOGLE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   const signInWithGoogle = async () => {
     try {
@@ -149,7 +150,7 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // POP Up with FACEBOOK
+  // POP Up with FACEBOOK  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   const signinWithFacebook = async () => {
     try {
@@ -167,6 +168,22 @@ export function AuthProvider({ children }) {
     }
   };
 
+  //  Supplier info >>>>>>>>>>>>>>>>
+
+  const getSupplierInfo = async () => {
+    setLoading(true);
+
+    const result = await supplierInfo({
+      entity_type: "FIBER",
+      user_id: 119,
+    });
+
+    // console.log("SUPPLIER INFO:", result);
+
+    setLoading(false);
+    return result;
+  };
+
   const value = {
     user,
     token,
@@ -179,6 +196,7 @@ export function AuthProvider({ children }) {
     clearAuth,
     signInWithGoogle,
     signinWithFacebook,
+    getSupplierInfo,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

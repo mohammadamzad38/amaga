@@ -12,8 +12,8 @@ export default function Home() {
         <CoverText />
         <QuickAccess />
         <AgamaMap />
-        <Post title={"Recent Posts"} />
-        <Post title={"Popular Posts"} />
+        <Post title="Recent Posts" type="fiber" mode="recent" />
+        <Post title="Popular Posts" type="yarn" mode="popular" />
         <Saller />
         <Support />
       </div>

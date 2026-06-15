@@ -28,28 +28,29 @@ const AccountCenter = () => {
               src={"" || "/icon/vector.jpg"}
               width={50}
               height={50}
-              alt=""
+              alt="Auth Image"
               className="rounded-full w-full"
             />
           </button>
           {showModal && (
-           <div
-  className="fixed inset-0 z-40"
-  onClick={() => setShowModal(false)}
->
-  <div
-    className="fixed top-10 right-10 md:right-24 lg:right-16 flex flex-col items-start text-sm bg-white p-5 space-y-2 rounded-lg w-50 h-44 shadow-xl border border-gray-50 z-50"
-    onClick={(e) => e.stopPropagation()}
-  >
-    <button>My Account</button>
-    <button>My Profile</button>
-    <button>News Feed</button>
-    <button>Change Password</button>
-    <button onClick={logout} className="cursor-pointer">
-      Logout
-    </button>
-  </div>
-</div>
+            <div
+              className="fixed inset-0 z-40"
+              onClick={() => setShowModal(false)}
+            >
+              <div
+                className="fixed top-10 right-10 md:right-24 lg:right-16 flex flex-col items-start text-sm bg-white p-5 space-y-2 rounded-lg w-50 h-auto shadow-xl border border-gray-50 z-50"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Link href="/upload">Upload</Link>
+                <Link href="/my-account">My Account</Link>
+                <button>My Profile</button>
+                <button>News Feed</button>
+                <button>Change Password</button>
+                <button onClick={logout} className="cursor-pointer">
+                  Logout
+                </button>
+              </div>
+            </div>
           )}
         </div>
       ) : (

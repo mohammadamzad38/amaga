@@ -1,10 +1,12 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import Header from "./components/header/header";
-import Footer from "./components/footer/footer";
 import "./globals.css";
-import { AuthProvider } from "@/context/authContext";
 import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
+import Footer from "./components/footer/footer";
+import Header from "./components/header/header";
+import { AuthProvider } from "@/context/authContext";
+import { Geist, Geist_Mono } from "next/font/google";
+import { DataProvider } from "@/context/DataContext";
+import PrivetRoute from "@/app/prrivetRoute/privetRoute";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,18 +33,22 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-screen flex flex-col pt-30 md:pt-17 lg:pt-20">
         <AuthProvider>
-          <Suspense
-            fallback={
-              <div className="min-h-screen flex items-center justify-center">
-                Loading.........
-              </div>
-            }
-          >
-            <Header />
-            <Toaster position="top-center" />
-            <main className="flex-1">{children}</main>
-          </Suspense>
-          <Footer />
+          <DataProvider>
+            <Suspense
+              fallback={
+                <div className="min-h-screen flex items-center justify-center">
+                  Loading.........
+                </div>
+              }
+            >
+              <Header />
+              <Toaster position="top-center" />
+              <main className="flex-1">
+                <PrivetRoute>{children}</PrivetRoute>
+              </main>
+            </Suspense>
+            <Footer />
+          </DataProvider>
         </AuthProvider>
       </body>
     </html>
