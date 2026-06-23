@@ -1,17 +1,31 @@
 "use client";
 
-import { createContext, useCallback, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useRef,
+  useState,
+} from "react";
 import { allPost } from "@/lib/api";
 import { filters } from "@/lib/dataFilter";
 
 const DataContext = createContext(null);
 
 export function DataProvider({ children }) {
+  const cache = useRef({});
   const [posts, setPosts] = useState([]);
   const [meta, setMeta] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const getAllPosts = useCallback(async (type = "fiber", mode = "recent") => {
+    const key = `${type}-${mode}`;
+
+    if (cache.current[key]) {
+      setPosts(cache.current[key].results);
+      setMeta(cache.current[key].meta);
+      return;
+    }
     setLoading(true);
 
     const filter = filters?.[mode]?.[type] || "";
@@ -24,8 +38,13 @@ export function DataProvider({ children }) {
     });
 
     if (!result.error) {
-      setPosts(result?.data?.results || []);
-      setMeta(result?.data?.meta || null);
+      cache.current[key] = {
+        results: result?.data?.results || [],
+        meta: result?.data?.meta || null,
+      };
+
+      setPosts(cache.current[key].results);
+      setMeta(cache.current[key].meta);
     }
 
     setLoading(false);

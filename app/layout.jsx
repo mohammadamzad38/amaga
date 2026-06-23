@@ -6,7 +6,7 @@ import Header from "./components/header/header";
 import { AuthProvider } from "@/context/authContext";
 import { Geist, Geist_Mono } from "next/font/google";
 import { DataProvider } from "@/context/DataContext";
-import PrivetRoute from "@/app/prrivetRoute/privetRoute";
+import PrivetRoute from "@/app/privetRoute/privetRoute";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

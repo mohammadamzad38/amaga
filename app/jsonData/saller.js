@@ -1,24 +1,19 @@
 const SallerData = [
   {
-    name: "Fiber Industry",
-    image: "/images/saller.jpg",
-    webUrl: "https://example.com/fiber",
+    image: "/images/hobbs.png",
+    webUrl: "https://www.hobbs.com",
   },
   {
-    name: "Textile Machinery",
-    image: "/images/saller.jpg",
-    webUrl: "https://example.com/machinery",
-  },
-
-  {
-    name: "Buying House",
-    image: "/images/saller.jpg",
-    webUrl: "https://example.com/buying",
+    image: "/images/argos.png",
+    webUrl: "https://www.argos.co.uk",
   },
   {
-    name: "Textile Knowledge",
-    image: "/images/saller.jpg",
-    webUrl: "https://example.com/knowledge",
+    image: "/images/harvieandhudsoncom.webp",
+    webUrl: "https://www.harvieandhudson.com",
+  },
+  {
+    image: "/images/Turnbull.png",
+    webUrl: "https://turnbullandasser.co.uk",
   },
 ];
 export default SallerData;

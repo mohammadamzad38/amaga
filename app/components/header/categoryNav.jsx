@@ -1,12 +1,12 @@
 "use client";
-import { useAuth } from "@/context/authContext";
+
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const CategoryNav = () => {
-  const { user } = useAuth();
-  const router = useRouter();
   const pathName = usePathname();
+
+  if (pathName === "/") return null;
 
   const links = [
     { label: "Fiber", value: "trade/fiber" },
@@ -22,35 +22,23 @@ const CategoryNav = () => {
     { label: "Logistic", value: "trade/logistic" },
   ];
 
-  console.log(user);
-  const handleClick = (path) => {
-    if (!user?.token) {
-      router?.push("/login");
-      return;
-    }
-
-    router?.push(path);
-  };
-
   return (
-    <nav className="w-full flex gap-4 p-4 mt-1 bg-[#ECECEC]">
+    <nav className="w-full flex flex-wrap md:flex-row gap-4 p-4 mt-1 bg-[#ECECEC]">
       {links.map((item, idx) => {
-        const path = `/${item?.value}`;
+        const path = `/${item.value}`;
         const isActive = pathName?.startsWith(path);
 
         return (
           <Link
             key={idx}
-            role="button"
             href={path}
-            onClick={handleClick}
-            className={`text-xl text-center cursor-pointer leading-0 py-4 font-bold w-full mx-auto  transition-colors ${
+            className={`text-sm lg:text-xl text-center cursor-pointer py-4 font-bold mx-auto transition-colors ${
               isActive
                 ? "text-green-600 border-b-2"
                 : "text-black hover:text-green-600"
             }`}
           >
-            {item?.label}
+            {item.label}
           </Link>
         );
       })}

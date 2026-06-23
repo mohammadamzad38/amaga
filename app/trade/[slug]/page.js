@@ -9,6 +9,9 @@ import Job from "../../components/trade/job";
 import Garment from "../../components/trade/garment";
 import Knowledge from "../../components/trade/knowledge";
 import Logistic from "../../components/trade/logistic";
+import Indices from "../../components/trade/indices";
+import NaturalFiber from "../../components/trade/naturalFiber";
+import ManMadeFiber from "../../components/trade/manMadeFiber";
 
 export default async function Page({ params }) {
   const { slug } = await params;
@@ -26,6 +29,9 @@ export default async function Page({ params }) {
         {slug === "garment" && <Garment />}
         {slug === "market-knowledge" && <Knowledge />}
         {slug === "logistic" && <Logistic />}
+        {slug === "index-and-chart" && <Indices />}
+        {slug === "fiber-natural" && <NaturalFiber />}
+        {slug === "fiber-man-made" && <ManMadeFiber />}
       </div>
     </div>
   );

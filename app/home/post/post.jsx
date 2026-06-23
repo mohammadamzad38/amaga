@@ -6,15 +6,25 @@ import { useEffect, useState } from "react";
 import Review from "../../components/review";
 import { IoChevronDown } from "react-icons/io5";
 import { useData } from "@/context/DataContext";
+import { useSearchParams } from "next/navigation";
 import SocialShare from "../socialShare/socialShare";
 
 const Post = ({ title, type = "fiber", mode = "recent" }) => {
   const [select, setSelect] = useState(type);
   const { posts, getAllPosts } = useData();
+  const searchParams = useSearchParams();
+  const q = searchParams.get("q");
+
+  const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
 
   useEffect(() => {
-    getAllPosts(select, mode);
-  }, [select, mode, getAllPosts]);
+    if (q) {
+      const filter = `ref_no='${q}'`;
+      getAllPosts(select, mode, filter);
+    } else {
+      getAllPosts(select, mode);
+    }
+  }, [select, mode, q, getAllPosts]);
 
   return (
     <div className="pb-20 pt-12.5">
@@ -79,7 +89,7 @@ const Post = ({ title, type = "fiber", mode = "recent" }) => {
 
             <div className="w-full h-60 overflow-hidden rounded-xl mt-8">
               <Image
-                src={"/icon/vector.jpg"}
+                src={"/icon/adminlogin-logo.png"}
                 alt="product"
                 width={500}
                 height={300}
@@ -99,7 +109,9 @@ const Post = ({ title, type = "fiber", mode = "recent" }) => {
             <div className="flex items-center justify-between text-sm mt-3 mb-8">
               <Review />
 
-              <SocialShare />
+              <SocialShare
+                url={`${baseUrl}/trade/${select}?q=${data.ref_no}`}
+              />
             </div>
 
             <div className="flex justify-center items-center">

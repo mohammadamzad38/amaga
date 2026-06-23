@@ -1,22 +1,35 @@
 import Image from "next/image";
+import Link from "next/link";
 import { PiLinkBold } from "react-icons/pi";
 
 const QuickAccess = () => {
   const itemList = [
-    { name: "Fiber", path: "/fiber", image: "/chain/chain-item-two.png" },
+    { name: "Fiber", path: "/trade/fiber", image: "/chain/chain-item-two.png" },
     { name: "Machinery", path: "/machinery", image: "/chain/machine.png" },
     {
       name: "Yarn",
-      path: "/yarn",
+      path: "/trade/yarn",
       image: "/chain/chain-item-three.png",
     },
-    { name: "Fabric", path: "/fabric", image: "/chain/chain-item-one.png" },
-    { name: "Buy", path: "/buy", image: "/chain/shopping.png" },
-    { name: "Design", path: "/design", image: "/chain/blueprint.png" },
-    { name: "Consultant", path: "/consultant", image: "/chain/consultant.png" },
-    { name: "Garment", path: "/garment", image: "/chain/clothes.png" },
-    { name: "Knowledge", path: "/knowledge", image: "/chain/knowledge.png" },
-    { name: "Logistic", path: "/logistic", image: "/chain/box.png" },
+    {
+      name: "Fabric",
+      path: "/trade/fabric",
+      image: "/chain/chain-item-one.png",
+    },
+    { name: "Buy", path: "/trade/buy", image: "/chain/shopping.png" },
+    { name: "Design", path: "/trade/design", image: "/chain/blueprint.png" },
+    {
+      name: "Consultant",
+      path: "/trade/consultant",
+      image: "/chain/consultant.png",
+    },
+    { name: "Garment", path: "/trade/garment", image: "/chain/clothes.png" },
+    {
+      name: "Knowledge",
+      path: "/trade/knowledge",
+      image: "/chain/knowledge.png",
+    },
+    { name: "Logistic", path: "/trade/logistic", image: "/chain/box.png" },
   ];
 
   return (
@@ -29,7 +42,8 @@ const QuickAccess = () => {
               <div className="relative w-18 h-18 flex items-center justify-center">
                 <div className="absolute inset-0 rounded-full border-2 border-dashed border-[#004cff] animate-[spin_10s_linear_infinite]"></div>
 
-                <div
+                <Link
+                  href={item.path}
                   className="relative w-14 h-14 rounded-full border-4 border-[#b8b3b444] cursor-pointer overflow-hidden flex items-center justify-center shadow-[inset_0_4px_10px_rgba(255,255,255,0.9),0_15px_35px_rgba(0,0,0,0.25)] z-10 bg-cover bg-center bg-no-repeat group"
                   style={{
                     backgroundImage: "url('/chain/background.png')",
@@ -44,7 +58,7 @@ const QuickAccess = () => {
                     height={50}
                     className="object-contain w-8 h-8 z-10"
                   />
-                </div>
+                </Link>
               </div>
             </div>
 

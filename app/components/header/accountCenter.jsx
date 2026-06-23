@@ -45,7 +45,7 @@ const AccountCenter = () => {
                 <Link href="/my-account">My Account</Link>
                 <button>My Profile</button>
                 <button>News Feed</button>
-                <button>Change Password</button>
+                <Link href={"change-password"}>Change Password</Link>
                 <button onClick={logout} className="cursor-pointer">
                   Logout
                 </button>

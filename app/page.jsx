@@ -13,7 +13,7 @@ export default function Home() {
         <QuickAccess />
         <AgamaMap />
         <Post title="Recent Posts" type="fiber" mode="recent" />
-        <Post title="Popular Posts" type="yarn" mode="popular" />
+        <Post title="Popular Posts" type="fiber" mode="popular" />
         <Saller />
         <Support />
       </div>

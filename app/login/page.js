@@ -20,6 +20,8 @@ const Page = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const { loading, logIn, signInWithGoogle, signinWithFacebook } = useAuth();
 
+  console.log(redirect, "what redirect")
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMessage("");
@@ -39,15 +41,10 @@ const Page = () => {
     }
 
     toast.success("Login successful!");
-    if (!error) {
-      router.push("/");
-    }
 
-    if (redirect) {
-      router.push(redirect);
-    } else {
-      router.push("/");
-    }
+    const redirectPath = redirect || "/";
+
+    router.replace(redirectPath);
   };
 
   const handleGooglePopup = async () => {

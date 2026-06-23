@@ -45,10 +45,10 @@ const Header = () => {
         </div>
 
         <div className="hidden lg:block">
-          <div className="flex gap-5 text-xl font-bold">
+          <div className="flex gap-5 text-lg md:text-sm lg:text-xl font-bold">
             {navList.map((nav, idx) => (
               <Link
-                className="active:border-[#1DBF74] active:text-[#1DBF74] border hover:text-[#1DBF74] py-1.2 px-5 leading-[31.50px] rounded-[30px] "
+                className="active:border-[#1DBF74] active:text-[#1DBF74] border hover:text-[#1DBF74]  px-5 leading-[31.50px] rounded-[30px] "
                 key={idx}
                 href={nav.path}
               >
@@ -108,7 +108,7 @@ const Header = () => {
                 Visit Online Mall
               </button>
 
-              <div className="flex flex-col gap-3 lg:gap-5 text-[18px] lg:text-xl font-bold ">
+              <div className="flex flex-col gap-3 lg:gap-5 text-sm md:text-lg lg:text-xl font-bold ">
                 {navList.map((nav, idx) => (
                   <Link
                     className="active:border-[#1DBF74] border-b hover:text-[#1DBF74] py-1.2 px-5 leading-[31.50px]"

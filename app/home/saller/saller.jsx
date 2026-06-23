@@ -1,5 +1,4 @@
 import Image from "next/image";
-// import { FaShareAlt } from "react-icons/fa";
 import sallerData from "../../jsonData/saller";
 import SocialShare from "../socialShare/socialShare";
 
@@ -19,7 +18,7 @@ const Saller = () => {
             >
               <Image
                 src={item.image}
-                alt={item.name}
+                alt={item.name || "Web url"}
                 width={500}
                 height={300}
                 className="w-full h-full object-cover"
@@ -28,7 +27,6 @@ const Saller = () => {
 
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
-                <p className="font-bold text-lg">{item.name}</p>
                 <a
                   href={item.webUrl}
                   target="_blank"
@@ -38,9 +36,6 @@ const Saller = () => {
                 </a>
               </div>
 
-              {/* <button className="p-2 rounded-full hover:bg-gray-100 transition">
-                <FaShareAlt className="text-gray-600" />
-              </button> */}
               <SocialShare />
             </div>
           </div>
