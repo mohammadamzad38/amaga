@@ -16,7 +16,7 @@ import ManMadeFiber from "../../components/trade/manMadeFiber";
 export default async function Page({ params }) {
   const { slug } = await params;
   return (
-    <div>
+    <div className="px-6 bg-[#ECECEC]">
       <div>
         {slug === "fiber" && <Fiber />}
         {slug === "machine" && <Machine />}

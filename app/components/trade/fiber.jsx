@@ -15,7 +15,7 @@ import FiberTopButton from "../fiberTopButton";
 
 const Fiber = () => {
   return (
-    <div className="bg-[#ECECEC] h-screen px-6 pt-6">
+    <div className="bg-[#ECECEC] h-screen pt-6">
       <div className="grid md:grid-cols-[3fr_1fr] flex-col">
         <FiberTopButton />
         <div>

@@ -35,7 +35,7 @@ export default function IndicesCharts() {
   }, [getAllPosts]);
 
   return (
-    <div className="w-full bg-gray-100 min-h-screen px-6 pt-6">
+    <div className="w-full min-h-screen pt-6">
       <FiberTopButton />
 
       <div className="flex flex-col md:flex-row md:items-center gap-4 md:justify-between mb-6">

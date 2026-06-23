@@ -16,7 +16,7 @@ const ManMadeFiber = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="h-screen bg-[#ECECEC] px-6 relative">
+    <div className="h-screen relative">
       <div>
         <FiberTopButton />
         <FiberMiddleBar />
