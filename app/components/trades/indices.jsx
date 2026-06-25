@@ -5,8 +5,8 @@ import Reset from "../reset";
 import Image from "next/image";
 import SearchInput from "../search";
 import Navigation from "../navigation";
+import FiberNavBTN from "../fiberNavBTN";
 import { useEffect, useState } from "react";
-import FiberTopButton from "../fiberTopButton";
 import { useData } from "../../../context/DataContext";
 
 export default function IndicesCharts() {
@@ -36,7 +36,7 @@ export default function IndicesCharts() {
 
   return (
     <div className="w-full min-h-screen pt-6">
-      <FiberTopButton />
+      <FiberNavBTN />
 
       <div className="flex flex-col md:flex-row md:items-center gap-4 md:justify-between mb-6">
         <Navigation t2="Indices & Charts" />

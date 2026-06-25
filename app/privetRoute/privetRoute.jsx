@@ -5,7 +5,13 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import CategoryNav from "../components/header/categoryNav";
 
-const protectedRoutes = ["/trade", "/dashboard", "/profile"];
+const protectedRoutes = [
+  "/trade",
+  "/sustainable",
+  "/shop",
+  "/dashboard",
+  "/profile",
+];
 
 const PrivateRoute = ({ children }) => {
   const { token } = useAuth();

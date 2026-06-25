@@ -2,6 +2,7 @@ import Image from "next/image";
 import sallerData from "../../jsonData/saller";
 import SocialShare from "../socialShare/socialShare";
 
+
 const Saller = () => {
   return (
     <div className="pt-12.5 pb-20">

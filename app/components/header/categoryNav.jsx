@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -32,7 +33,7 @@ const CategoryNav = () => {
           <Link
             key={idx}
             href={path}
-            className={`text-sm lg:text-xl text-center cursor-pointer py-4 font-bold mx-auto transition-colors ${
+            className={`text-sm lg:text-xl text-center cursor-pointer md:py-4 font-bold mx-auto transition-colors ${
               isActive
                 ? "text-green-600 border-b-2"
                 : "text-black hover:text-green-600"
@@ -42,7 +43,15 @@ const CategoryNav = () => {
           </Link>
         );
       })}
-    </nav>
+      <Link className="w-15 h-15" href={"/sustainable"}>
+        <Image
+          src="/images/grouplogo.png"
+          alt="Sustainable"
+          width={500}
+          height={500}
+        />
+      </Link>
+    </nav> 
   );
 };
 

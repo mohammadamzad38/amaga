@@ -8,7 +8,7 @@ const Sort = ({ sorted, setSorted }) => {
         <select
           value={sorted}
           onChange={(e) => setSorted(e.target.value)}
-          className="px-3 text-sm py-2 bg-white shadow outline-none rounded-md"
+          className="px-3 cursor-pointer text-sm py-2 bg-white shadow outline-none rounded-md"
         >
           <option value="new">New to Old</option>
           <option value="old">Old to New</option>

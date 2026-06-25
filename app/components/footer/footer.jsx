@@ -1,8 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 import { MdSend } from "react-icons/md";
+import { HiOutlineMailOpen } from "react-icons/hi";
+import { IoCloseCircleOutline } from "react-icons/io5";
 
 const Footer = () => {
+  const [contact, setContact] = useState(false);
   const socialList = [
     {
       name: "FACEBOOK",
@@ -18,7 +24,9 @@ const Footer = () => {
       path: "https://www.linkedin.com/in/it-agama-275545202/",
     },
   ];
+
   const year = new Date().getFullYear();
+
   const navLinks = [
     { name: "About Us", path: "/about-us" },
     { name: "Contact Us", path: "/contact-us" },
@@ -27,10 +35,10 @@ const Footer = () => {
   ];
 
   const resourceLinks = [
-    { name: "Job Marketplace", path: "/job-resources" },
-    { name: "Supplier Directory", path: "/supplier-directory" },
-    { name: "Consultant Library", path: "/consultant-library" },
-    { name: "Knowledge", path: "/knowledge" },
+    { name: "Job Marketplace", path: "/trade/job" },
+    { name: "Supplier Directory", path: "/trade/supply-chain" },
+    { name: "Consultant Library", path: "/trade/consultant" },
+    { name: "Knowledge", path: "/trade/market-knowledge" },
   ];
   return (
     <div>
@@ -59,15 +67,25 @@ const Footer = () => {
             <p className="text-[18px] font-semibold pb-2.25 text-[#1C2F41]">
               Navigation
             </p>
-            {navLinks.map((item, idx) => (
-              <Link
-                className="text-sm leading-5 py-1.25 text-gray-500"
-                href={item.path}
-                key={idx}
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navLinks.map((item, idx) =>
+              item.name === "Contact Us" ? (
+                <button
+                  key={idx}
+                  onClick={() => setContact(true)}
+                  className="text-sm leading-5 py-1.25 text-gray-500 text-left cursor-pointer"
+                >
+                  {item.name}
+                </button>
+              ) : (
+                <Link
+                  className="text-sm leading-5 py-1.25 text-gray-500"
+                  href={item.path}
+                  key={idx}
+                >
+                  {item.name}
+                </Link>
+              ),
+            )}
           </div>
           <div className="flex flex-col">
             <p className="text-[18px] font-semibold pb-2.25 text-[#1C2F41]">
@@ -83,6 +101,38 @@ const Footer = () => {
               </Link>
             ))}
           </div>
+          {contact && (
+            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+              <div className="bg-white rounded-xl shadow-lg w-full max-w-lg relative p-6">
+                {/* Close Button */}
+                <button
+                  onClick={() => setContact(false)}
+                  className="absolute top-4 cursor-pointer hover:text-red-400 right-4 text-gray-500 hover:text-black text-xl"
+                >
+                  <IoCloseCircleOutline size={25} />
+                </button>
+
+                <h2 className="text-xl font-semibold text-[#073347] mb-2">
+                  Contact IT Agama
+                </h2>
+                <div className="border-b-2 border-gray-200 mb-4"></div>
+                <div className="space-y-3 text-gray-700">
+                  <p>
+                    If you have any questions or need help, please email us at
+                    ....
+                  </p>
+
+                  <a
+                    className="flex items-center gap-2 hover:text-[#1DBF74] font-semibold border text-lg justify-center hover:border-[#1DBF74] w-[60%]  rounded-sm px-4 py-2"
+                    href="mailto:marketing@itagama.com"
+                  >
+                    <HiOutlineMailOpen size={20} />
+                    marketing@itagama.com
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="flex flex-col">
             <p className="text-[18px] font-semibold pb-2.25 text-[#1C2F41]">
               Stay up to Date

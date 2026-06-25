@@ -4,9 +4,9 @@ import Sort from "../sort";
 import Reset from "../reset";
 import SearchInput from "../search";
 import React, { useState } from "react";
+import FiberNavBTN from "../fiberNavBTN";
 import { FaAngleUp } from "react-icons/fa6";
 import { FaAngleDown } from "react-icons/fa6";
-import FiberTopButton from "../fiberTopButton";
 import FiberMiddleBar from "../fiberMiddleBar";
 
 const categories = ["Jute", "Flax", "Others"];
@@ -18,7 +18,7 @@ const NaturalFiber = () => {
   return (
     <div className="h-screen relative">
       <div>
-        <FiberTopButton />
+        <FiberNavBTN />
         <FiberMiddleBar />
 
         <div className="flex justify-between w-full pt-8 flex-wrap gap-4 items-center overflow-hidden">

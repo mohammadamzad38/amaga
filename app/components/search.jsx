@@ -39,7 +39,7 @@ export default function SearchInput({
       <button
         type="submit"
         aria-label="Submit search"
-        className="w-12 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors"
+        className="w-12 flex items-center cursor-pointer justify-center text-gray-400 hover:text-gray-600 transition-colors"
       >
         <PiMagnifyingGlassBold size={18} />
       </button>

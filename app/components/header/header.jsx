@@ -9,8 +9,10 @@ import { IoMdMail } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { AiOutlineShop } from "react-icons/ai";
 import AccountCenter from "./accountCenter";
+import { useAuth } from "@/context/authContext";
 
 const Header = () => {
+  const { user } = useAuth();
   const [showMenu, setShowMenu] = useState(false);
 
   const navList = [
@@ -21,7 +23,7 @@ const Header = () => {
 
   return (
     <div>
-      <div className="flex flex-col md:flex-row fixed top-0 left-0 z-40 w-full bg-white justify-around lg:justify-between items-center px-5 lg:px-10 py-3 gap-3 md:gap-4">
+      <div className="flex flex-col md:flex-row fixed top-0 left-0 z-40 w-full bg-white justify-around lg:justify-between items-center px-5 lg:px-10 py-2 gap-3 md:gap-4">
         <div className="flex justify-between w-full lg:w-auto">
           <Link href={"/"}>
             <Image
@@ -38,17 +40,20 @@ const Header = () => {
         </div>
 
         <div className="hidden lg:block">
-          <button className="flex cursor-pointer items-center gap-4 border py-2.5 px-4 outline-[#1DBF74] text-[15px] font-bold rounded-sm text-[#1DBF74]">
-            <AiOutlineShop size={25} />
+          <Link
+            href={"/shop/shop-link"}
+            className="flex cursor-pointer items-center gap-4 border py-2.5 px-4 outline-[#1DBF74] text-[15px] font-bold rounded-sm text-[#1DBF74]"
+          >
+            <AiOutlineShop size={20} />
             Visit Online Mall
-          </button>
+          </Link>
         </div>
 
         <div className="hidden lg:block">
           <div className="flex gap-5 text-lg md:text-sm lg:text-xl font-bold">
             {navList.map((nav, idx) => (
               <Link
-                className="active:border-[#1DBF74] active:text-[#1DBF74] border hover:text-[#1DBF74]  px-5 leading-[31.50px] rounded-[30px] "
+                className="active:border-[#1DBF74] active:text-[#1DBF74] border hover:text-[#1DBF74]  px-5 rounded-[30px] "
                 key={idx}
                 href={nav.path}
               >
@@ -103,10 +108,13 @@ const Header = () => {
             </div>
 
             <div className="space-y-5">
-              <button className="flex items-center cursor-pointer gap-4 border py-2.5 px-4 outline-[#1DBF74] text-[15px] font-bold rounded-sm text-[#1DBF74]">
+              <Link
+                href={"/shop/shop-link"}
+                className="flex items-center mt-2 cursor-pointer gap-4 border py-2.5 px-4 outline-[#1DBF74] text-[15px] font-bold rounded-sm text-[#1DBF74]"
+              >
                 <AiOutlineShop size={25} />
                 Visit Online Mall
-              </button>
+              </Link>
 
               <div className="flex flex-col gap-3 lg:gap-5 text-sm md:text-lg lg:text-xl font-bold ">
                 {navList.map((nav, idx) => (
@@ -121,21 +129,27 @@ const Header = () => {
                 ))}
               </div>
 
-              <div className="flex flex-col gap-4">
-                <Link
-                  onClick={() => setShowMenu(false)}
-                  href="/login"
-                  className="text-[18px] text-center hover:border hover:text-[#1DBF74] cursor-pointer font-bold px-5 py-2.5 rounded-sm "
-                >
-                  Log in
-                </Link>
-                <button
-                  onClick={() => setShowMenu(false)}
-                  className="text-[16px] px-7 py-2.5 rounded-sm cursor-pointer bg-[#1DBF74] font-bold text-white"
-                >
-                  Get Started
-                </button>
-              </div>
+              {user ? (
+                <p className="border text-center rounded-sm p-2">
+                  select Language
+                </p>
+              ) : (
+                <div className="flex flex-col gap-4">
+                  <Link
+                    onClick={() => setShowMenu(false)}
+                    href="/login"
+                    className="text-[18px] text-center hover:border hover:text-[#1DBF74] cursor-pointer font-bold px-5 py-2.5 rounded-sm "
+                  >
+                    Log in
+                  </Link>
+                  <button
+                    onClick={() => setShowMenu(false)}
+                    className="text-[16px] px-7 py-2.5 rounded-sm cursor-pointer bg-[#1DBF74] font-bold text-white"
+                  >
+                    Get Started
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

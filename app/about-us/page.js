@@ -26,6 +26,7 @@ const About = () => {
           alt="logo"
           width={160}
           height={60}
+          className="w-auto h-auto object-contain"
         />
       </div>
 

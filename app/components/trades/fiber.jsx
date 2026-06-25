@@ -11,13 +11,13 @@ import GradeDropdown from "../gradeDropdown";
 import OriginDropdown from "../originDropdown";
 import StapleDropdown from "../stapleDropdown";
 import FiberTopBar from "../fiberMiddleBar";
-import FiberTopButton from "../fiberTopButton";
+import FiberNavBTN from "../fiberNavBTN";
 
 const Fiber = () => {
   return (
     <div className="bg-[#ECECEC] h-screen pt-6">
       <div className="grid md:grid-cols-[3fr_1fr] flex-col">
-        <FiberTopButton />
+        <FiberNavBTN />
         <div>
           <BuyerQuarry />
         </div>

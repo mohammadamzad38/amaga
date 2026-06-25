@@ -1,9 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
 import PriceFilter from "./priceFilter";
-
-/* ---------------- OPTIONS ---------------- */
 
 const fiberOptions = [
   "Jute",
@@ -63,8 +60,6 @@ const specialityOptions = [
   "Others",
 ];
 
-/* ---------------- UI BLOCK ---------------- */
-
 const CheckboxGroup = ({ title, options, selected, onChange }) => {
   const handleToggle = (item) => {
     const updated = selected.includes(item)
@@ -98,8 +93,6 @@ const CheckboxGroup = ({ title, options, selected, onChange }) => {
   );
 };
 
-/* ---------------- MAIN COMPONENT ---------------- */
-
 export default function YarnFilter({
   fiber = [],
   setFiber = () => {},
@@ -115,7 +108,6 @@ export default function YarnFilter({
 }) {
   return (
     <div>
-      {/* FIBER */}
       <CheckboxGroup
         title="Fiber"
         options={fiberOptions}
@@ -123,12 +115,10 @@ export default function YarnFilter({
         onChange={setFiber}
       />
 
-      {/* PRICE FILTER (NOW IN CORRECT POSITION) */}
       <div className="bg-white p-4">
         <PriceFilter />
       </div>
 
-      {/* QUALITY */}
       <CheckboxGroup
         title="Quality"
         options={qualityOptions}
@@ -136,7 +126,6 @@ export default function YarnFilter({
         onChange={setQuality}
       />
 
-      {/* YARN COUNT */}
       <CheckboxGroup
         title="Yarn Count"
         options={yarnCountOptions}
@@ -144,7 +133,6 @@ export default function YarnFilter({
         onChange={setYarnCount}
       />
 
-      {/* SPECIALITY */}
       <CheckboxGroup
         title="Speciality Yarns"
         options={specialityOptions}
