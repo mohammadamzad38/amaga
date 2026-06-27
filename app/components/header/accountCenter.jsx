@@ -5,10 +5,16 @@ import { IoMail } from "react-icons/io5";
 import InviteModal from "../inviteModal";
 import { useAuth } from "@/context/authContext";
 import { useState } from "react";
+import LangSwitch from "@/app/i18n/langSwitch";
 
 const AccountCenter = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, isInitialized } = useAuth();
   const [showModal, setShowModal] = useState(false);
+
+  if (!isInitialized) {
+    return null;
+  }
+
   return (
     <div>
       {user ? (
@@ -19,7 +25,9 @@ const AccountCenter = () => {
               <IoMail size={25} />
             </button>
           </div>
-          <div className="hidden lg:block">language option</div>
+          <div className="hidden lg:block">
+            <LangSwitch />
+          </div>
           <button
             onClick={() => setShowModal(true)}
             className="cursor-pointer flex justify-end border rounded-full h-11.25 w-11.25"

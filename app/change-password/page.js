@@ -5,18 +5,16 @@ const Page = () => {
   return (
     <div className="py-20 flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white border border-gray-300 rounded-xl p-6 shadow-sm">
-        {/* Logo */}
         <div className="flex justify-center mb-6">
           <Image
-            width={400}
-            height={400}
+            width={200}
+            height={200}
             src="/images/company-logo.png"
             alt="Adminlogin Logo"
             className="h-15 w-full object-contain"
           />
         </div>
 
-        {/* Heading */}
         <h2 className="text-base lg:text-xl font-semibold text-gray-900 mb-2">
           Change Password
         </h2>
@@ -26,7 +24,6 @@ const Page = () => {
           using elsewhere
         </p>
 
-        {/* Form */}
         <form className="space-y-4">
           <input
             type="password"

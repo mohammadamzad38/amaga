@@ -17,7 +17,7 @@ import SupplyChain from "../../components/trades/supplyChain";
 export default async function Page({ params }) {
   const { slug } = await params;
   return (
-    <div className="px-6 bg-[#ECECEC] h-screen">
+    <div className="px-6 bg-[#ECECEC] min-h-screen">
       <div>
         {slug === "fiber" && <Fiber />}
         {slug === "machine" && <Machine />}

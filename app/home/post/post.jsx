@@ -115,7 +115,7 @@ const Post = ({ title, type = "fiber", mode = "recent" }) => {
             </div>
 
             <div className="flex justify-center items-center">
-              <button className="mt-auto w-50 cursor-pointer bg-[#1DBF74] text-white font-bold py-2 rounded-3xl hover:bg-green-600 transition">
+              <button className="mt-auto w-auto px-4 text-sm cursor-pointer bg-[#1DBF74] text-white font-bold py-2 rounded-3xl hover:bg-green-600 transition">
                 Contact Supplier
               </button>
             </div>

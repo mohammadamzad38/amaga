@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import toast from "react-hot-toast";
+import { updateUser } from "../../lib/api";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
-import { updateUser } from "../../lib/api";
-import toast from "react-hot-toast";
 
 const Page = () => {
   const { user, setUser } = useAuth();
@@ -19,7 +19,6 @@ const Page = () => {
   const [company, setCompany] = useState(user?.company_name || "");
   const [firstName, setFirstName] = useState(user?.first_name || "");
 
-  //   Countryssss API >>>>>>>>>>>>>
   useEffect(() => {
     const loadCountries = async () => {
       try {
@@ -87,7 +86,6 @@ const Page = () => {
     }
   };
 
-  // Image preview and uploafdd>>>>>>>
   const handleImageUpload = (e) => {
     const selected = e.target.files?.[0];
 
@@ -134,7 +132,6 @@ const Page = () => {
             />
           </div>
 
-          {/* First + Last Name */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input
               name="firstName"
@@ -155,7 +152,6 @@ const Page = () => {
             />
           </div>
 
-          {/* Company Name */}
           <input
             name="company"
             type="text"
@@ -165,7 +161,6 @@ const Page = () => {
             className="w-full border border-gray-300 rounded-lg px-4 py-4 outline-none"
           />
 
-          {/* Phone Number */}
           <input
             name="phone"
             type="tel"
@@ -175,7 +170,6 @@ const Page = () => {
             className="w-full border border-gray-300 rounded-lg px-4 py-4 outline-none"
           />
 
-          {/* Country */}
           <select
             value={country}
             onChange={(e) => setCountry(e.target.value)}
@@ -189,7 +183,6 @@ const Page = () => {
             ))}
           </select>
 
-          {/* About */}
           <textarea
             name="about"
             rows={5}
@@ -199,7 +192,6 @@ const Page = () => {
             className="w-full border border-gray-300 rounded-lg px-4 py-4 outline-none resize-none"
           />
 
-          {/* Button */}
 
           <button
             type="submit"

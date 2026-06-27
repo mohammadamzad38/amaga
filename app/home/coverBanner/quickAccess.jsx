@@ -5,7 +5,7 @@ import { PiLinkBold } from "react-icons/pi";
 const QuickAccess = () => {
   const itemList = [
     { name: "Fiber", path: "/trade/fiber", image: "/chain/chain-item-two.png" },
-    { name: "Machinery", path: "/machinery", image: "/chain/machine.png" },
+    { name: "Machinery", path: "/trade/machine", image: "/chain/machine.png" },
     {
       name: "Yarn",
       path: "/trade/yarn",
@@ -16,7 +16,7 @@ const QuickAccess = () => {
       path: "/trade/fabric",
       image: "/chain/chain-item-one.png",
     },
-    { name: "Buy", path: "/trade/buy", image: "/chain/shopping.png" },
+    { name: "Buy", path: "/trade/buyer-post", image: "/chain/shopping.png" },
     { name: "Design", path: "/trade/design", image: "/chain/blueprint.png" },
     {
       name: "Consultant",
@@ -26,7 +26,7 @@ const QuickAccess = () => {
     { name: "Garment", path: "/trade/garment", image: "/chain/clothes.png" },
     {
       name: "Knowledge",
-      path: "/trade/knowledge",
+      path: "/trade/market-knowledge",
       image: "/chain/knowledge.png",
     },
     { name: "Logistic", path: "/trade/logistic", image: "/chain/box.png" },

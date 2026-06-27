@@ -3,14 +3,20 @@
 import { signUp } from "@/lib/api";
 import { supplierInfo } from "../lib/api";
 import { useRouter } from "next/navigation";
-import { allPost, signIn } from "@/lib/api";
+import { signIn } from "@/lib/api";
 import auth from "../app/firebase/firebase.init";
 import {
   signInWithPopup,
   GoogleAuthProvider,
   FacebookAuthProvider,
 } from "firebase/auth";
-import { createContext, useCallback, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 // https://agama-it.firebaseapp.com/__/auth/handler
 
@@ -32,15 +38,13 @@ const getStoredAuth = () => {
   }
 };
 
-const storedAuth = getStoredAuth();
-
 export function AuthProvider({ children }) {
   const router = useRouter();
 
-  const [isInitialized] = useState(true);
+  const [isInitialized, setInitialized] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState(storedAuth.user);
-  const [token, setToken] = useState(storedAuth.token);
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
   const persist = useCallback((userData, authToken) => {
     const payload = { user: userData, token: authToken };
@@ -54,6 +58,15 @@ export function AuthProvider({ children }) {
 
     setUser(userData);
     setToken(authToken);
+    setInitialized(true);
+  }, []);
+
+  useEffect(() => {
+    const auth = getStoredAuth();
+
+    setUser(auth.user);
+    setToken(auth.token);
+    setInitialized(true);
   }, []);
 
   // Login Account ?>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -125,6 +138,7 @@ export function AuthProvider({ children }) {
 
     setUser(null);
     setToken(null);
+    setInitialized(true);
     router.push("/login");
   }, [router]);
 

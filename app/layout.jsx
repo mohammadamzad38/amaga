@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Suspense } from "react";
+import "@/app/i18n/googleTrns.css";
 import { Toaster } from "react-hot-toast";
 import Footer from "./components/footer/footer";
 import Header from "./components/header/header";
@@ -7,6 +8,8 @@ import { AuthProvider } from "@/context/authContext";
 import { Geist, Geist_Mono } from "next/font/google";
 import { DataProvider } from "@/context/DataContext";
 import PrivetRoute from "@/app/privetRoute/privetRoute";
+import TranslateProvider from "./i18n/translateProvider";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,24 +35,26 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-screen flex flex-col pt-30 md:pt-17 lg:pt-20">
-        <AuthProvider>
-          <DataProvider>
-            <Suspense
-              fallback={
-                <div className="min-h-screen flex items-center justify-center">
-                  Loading.........
-                </div>
-              }
-            >
-              <Header />
-              <Toaster position="top-center" />
-              <main className="flex-1">
-                <PrivetRoute>{children}</PrivetRoute>
-              </main>
-            </Suspense>
-            <Footer />
-          </DataProvider>
-        </AuthProvider>
+        <TranslateProvider>
+          <AuthProvider>
+            <DataProvider>
+              <Suspense
+                fallback={
+                  <div className="min-h-screen flex items-center justify-center">
+                    Loading.........
+                  </div>
+                }
+              >
+                <Header />
+                <Toaster position="top-center" />
+                <main className="flex-1">
+                  <PrivetRoute>{children}</PrivetRoute>
+                </main>
+              </Suspense>
+              <Footer />
+            </DataProvider>
+          </AuthProvider>
+        </TranslateProvider>
       </body>
     </html>
   );

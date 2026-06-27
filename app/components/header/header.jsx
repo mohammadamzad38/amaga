@@ -7,9 +7,10 @@ import InviteModal from "../inviteModal";
 import { IoMenu } from "react-icons/io5";
 import { IoMdMail } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
-import { AiOutlineShop } from "react-icons/ai";
 import AccountCenter from "./accountCenter";
+import { AiOutlineShop } from "react-icons/ai";
 import { useAuth } from "@/context/authContext";
+import LangSwitch from "../../i18n/langSwitch";
 
 const Header = () => {
   const { user } = useAuth();
@@ -130,9 +131,9 @@ const Header = () => {
               </div>
 
               {user ? (
-                <p className="border text-center rounded-sm p-2">
-                  select Language
-                </p>
+                <div className="flex justify-end top-0">
+                  <LangSwitch />
+                </div>
               ) : (
                 <div className="flex flex-col gap-4">
                   <Link
