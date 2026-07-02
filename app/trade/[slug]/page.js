@@ -1,18 +1,18 @@
-import Fiber from "../../components/trades/fiber";
-import Machine from "../../components/trades/machine";
-import Yarn from "../../components/trades/yarn";
-import Fabric from "../../components/trades/fabric";
-import Buy from "../../components/trades/buy";
-import Design from "../../components/trades/designe";
-import Consult from "../../components/trades/consultant";
-import Job from "../../components/trades/job";
-import Garment from "../../components/trades/garment";
-import Knowledge from "../../components/trades/knowledge";
-import Logistic from "../../components/trades/logistic";
-import Indices from "../../components/trades/indices";
-import NaturalFiber from "../../components/trades/naturalFiber";
-import ManMadeFiber from "../../components/trades/manMadeFiber";
-import SupplyChain from "../../components/trades/supplyChain";
+import Buy from "../../components/trades/buy/buy";
+import Job from "../../components/trades/job/job";
+import Yarn from "../../components/trades/yarn/yarn";
+import Fiber from "../../components/trades/fiber/fiber";
+import Fabric from "../../components/trades/fabric/fabric";
+import Indices from "../../components/trades/indices/indices";
+import Design from "../../components/trades/designer/designe";
+import Machine from "../../components/trades/machine/machine";
+import Garment from "../../components/trades/garments/garment";
+import Consult from "../../components/trades/consult/consultant";
+import Logistic from "../../components/trades/logistics/logistic";
+import Knowledge from "../../components/trades/knowledge/knowledge";
+import SupplyChain from "../../components/trades/supplyChain/supplyChain";
+import NaturalFiber from "../../components/trades/naturalFiber/naturalFiber";
+import ManMadeFiber from "../../components/trades/manMadeFiber/manMadeFiber";
 
 export default async function Page({ params }) {
   const { slug } = await params;

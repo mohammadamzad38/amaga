@@ -18,8 +18,6 @@ import {
   useState,
 } from "react";
 
-// https://agama-it.firebaseapp.com/__/auth/handler
-
 const STORAGE_KEY = "agama_it_auth";
 const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();

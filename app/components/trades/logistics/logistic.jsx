@@ -1,10 +1,10 @@
 import React from "react";
-import Sort from "../sort";
-import Reset from "../reset";
-import Search from "../search";
-import Navigation from "../navigation";
-import ActionButton from "../actionButton";
-import OriginDropdown from "../originDropdown";
+import Sort from "../../sort";
+import Reset from "../../reset";
+import Search from "../../search";
+import Navigation from "../../navigation";
+import ActionButton from "../../actionButton";
+import OriginDropdown from "../../originDropdown";
 
 const Logistic = () => {
   return (

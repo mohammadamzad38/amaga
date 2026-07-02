@@ -3,28 +3,105 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import Review from "../../components/review";
-import { IoChevronDown } from "react-icons/io5";
-import { useData } from "@/context/DataContext";
 import { useSearchParams } from "next/navigation";
+import { IoChevronDown } from "react-icons/io5";
+
+import { useData } from "@/context/DataContext";
+import Review from "../../components/review";
 import SocialShare from "../socialShare/socialShare";
 
-const Post = ({ title, type = "fiber", mode = "recent" }) => {
-  const [select, setSelect] = useState(type);
-  const { posts, getAllPosts } = useData();
+const Post = ({ title, query = {} }) => {
+  const {
+    type = "fiber",
+    mode = "recent",
+    top = 4,
+    skip = 0,
+    search = "",
+    filter,
+    expand = "",
+    orderby = "id desc",
+  } = query;
+
+  const { getAllPosts } = useData();
+
   const searchParams = useSearchParams();
   const q = searchParams.get("q");
+
+  const [select, setSelect] = useState(type);
+  const [posts, setPosts] = useState([]);
+  const [meta, setMeta] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
 
   useEffect(() => {
-    if (q) {
-      const filter = `ref_no='${q}'`;
-      getAllPosts(select, mode, filter);
-    } else {
-      getAllPosts(select, mode);
+    setSelect(
+      type === "portfolio" && mode === "consultant" ? "consultant" : type,
+    );
+  }, [type, mode]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function loadPosts() {
+      setLoading(true);
+
+      const apiType = select === "consultant" ? "portfolio" : select;
+
+      const result = await getAllPosts({
+        type: apiType,
+        mode,
+        top,
+        skip,
+        search,
+        expand,
+        orderby,
+
+        ...(q
+          ? {
+              filter: `ref_no='${q}'`,
+            }
+          : select === "consultant"
+            ? {
+                filter: "portfolio_type=2",
+              }
+            : filter !== undefined
+              ? {
+                  filter,
+                }
+              : {}),
+      });
+
+      if (!mounted) return;
+
+      if (!result.error) {
+        setPosts(result.data?.results || []);
+        setMeta(result.data?.meta || null);
+      } else {
+        setPosts([]);
+        setMeta(null);
+      }
+
+      setLoading(false);
     }
-  }, [select, mode, q, getAllPosts]);
+
+    loadPosts();
+
+    return () => {
+      mounted = false;
+    };
+  }, [
+    select,
+    mode,
+    top,
+    skip,
+    search,
+    filter,
+    expand,
+    orderby,
+    q,
+    getAllPosts,
+  ]);
 
   return (
     <div className="pb-20 pt-12.5">
@@ -35,7 +112,7 @@ const Post = ({ title, type = "fiber", mode = "recent" }) => {
           <select
             value={select}
             onChange={(e) => setSelect(e.target.value)}
-            className="w-full appearance-none border text-sm md:text-base border-gray-400 px-4 py-2 rounded-lg outline-none bg-white"
+            className="w-full appearance-none rounded-lg border border-gray-400 bg-white px-4 py-2 text-sm outline-none md:text-base"
           >
             <option value="fiber">Fiber</option>
             <option value="machine">Machinery</option>
@@ -50,78 +127,88 @@ const Post = ({ title, type = "fiber", mode = "recent" }) => {
             <option value="logistic">Logistic</option>
           </select>
 
-          <IoChevronDown className="absolute top-1/2 right-4 -translate-y-1/2 text-gray-500 pointer-events-none" />
+          <IoChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-500" />
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-        {posts?.map((data) => (
-          <div
-            key={data.id}
-            className="w-full max-w-sm  flex flex-col bg-[#F6F6F6] shadow-xl px-3.75 py-6.25"
-          >
-            <div className="flex justify-between items-center">
-              <div>
-                <div className="flex items-center gap-3">
-                  <Image
-                    src={"/icon/vector.jpg"}
-                    alt={data.name || "alt"}
-                    width={45}
-                    height={45}
-                    className="rounded-full object-cover w-8 h-8 "
-                  />
-                  <Link
-                    href=""
-                    className="cursor-pointer font-bold text-sm line-clamp-1"
-                  >
-                    {data.name || "Supplier"}
-                  </Link>
+
+      {loading ? (
+        <div className="py-20 text-center">Loading...</div>
+      ) : posts.length === 0 ? (
+        <div className="py-20 text-center">No Data Found</div>
+      ) : (
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+          {posts.map((data) => (
+            <div
+              key={data.id}
+              className="flex w-full max-w-sm flex-col bg-[#F6F6F6] px-3.75 py-6.25 shadow-xl"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="flex items-center gap-3">
+                    <Image
+                      src="/icon/vector.jpg"
+                      alt={data.name || "Supplier"}
+                      width={45}
+                      height={45}
+                      className="h-8 w-8 rounded-full object-cover"
+                    />
+
+                    <Link
+                      href=""
+                      className="line-clamp-1 cursor-pointer text-sm font-bold"
+                    >
+                      {data.name || "Supplier"}
+                    </Link>
+                  </div>
+
+                  <p className="ml-11 text-xs leading-none text-gray-500">
+                    {data.postHour}
+                  </p>
                 </div>
-                <p className="text-xs leading-none ml-11 text-gray-500">
-                  {data.postHour}
-                </p>
-              </div>
-              <div>
-                <button className="px-4 cursor-pointer py-2 text-white text-xs font-semibold rounded-md bg-[#1DBF74] ">
+
+                <button className="rounded-md bg-[#1DBF74] px-4 py-2 text-xs font-semibold text-white">
                   Follow
                 </button>
               </div>
-            </div>
 
-            <div className="w-full h-60 overflow-hidden rounded-xl mt-8">
-              <Image
-                src={"/icon/adminlogin-logo.png"}
-                alt="product"
-                width={500}
-                height={300}
-              />
-            </div>
+              <div className="mt-8 h-60 overflow-hidden rounded-xl">
+                <Image
+                  src="/icon/adminlogin-logo.png"
+                  alt="product"
+                  width={500}
+                  height={300}
+                />
+              </div>
 
-            <div className="space-y-2 text-sm md:text-base font-bold mt-3">
-              <p className="line-clamp-2">Ref No: {data.ref_no}</p>
-              <p className="line-clamp-1">Grade: {data.grade}</p>
-              <p className="line-clamp-1">Staple: {data.staple}</p>
-              <p className="line-clamp-1">Origin: {data.origin}</p>
-              <p className="line-clamp-1">Mic: {data.mic}</p>
-              <p className="line-clamp-1">GPT: {data.gpt}</p>
-              <p className="line-clamp-1">Comment: {data.comment}</p>
-            </div>
+              <div className="mt-3 space-y-2 text-sm font-bold md:text-base">
+                <p className="line-clamp-2">Ref No: {data.ref_no}</p>
+                <p className="line-clamp-1">Grade: {data.grade}</p>
+                <p className="line-clamp-1">Staple: {data.staple}</p>
+                <p className="line-clamp-1">Origin: {data.origin}</p>
+                <p className="line-clamp-1">Mic: {data.mic}</p>
+                <p className="line-clamp-1">GPT: {data.gpt}</p>
+                <p className="line-clamp-1">Comment: {data.comment}</p>
+              </div>
 
-            <div className="flex items-center justify-between text-sm mt-3 mb-8">
-              <Review />
+              <div className="mb-8 mt-3 flex items-center justify-between text-sm">
+                <Review />
 
-              <SocialShare
-                url={`${baseUrl}/trade/${select}?q=${data.ref_no}`}
-              />
-            </div>
+                <SocialShare
+                  url={`${baseUrl}/trade/${
+                    select === "consultant" ? "portfolio" : select
+                  }?q=${data.ref_no}`}
+                />
+              </div>
 
-            <div className="flex justify-center items-center">
-              <button className="mt-auto w-auto px-4 text-sm cursor-pointer bg-[#1DBF74] text-white font-bold py-2 rounded-3xl hover:bg-green-600 transition">
-                Contact Supplier
-              </button>
+              <div className="flex justify-center">
+                <button className="mt-auto w-auto rounded-3xl bg-[#1DBF74] px-4 py-2 text-sm font-bold text-white transition hover:bg-green-600">
+                  Contact Supplier
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

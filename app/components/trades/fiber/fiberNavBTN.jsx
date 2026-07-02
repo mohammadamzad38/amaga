@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import CircleNavButton from "./common/circleNavBTN";
+import CircleNavButton from "../../common/circleNavBTN";
 
 const FiberNavBTN = () => {
   const pathname = usePathname();

@@ -1,40 +1,32 @@
 "use client";
 
-import Sort from "../sort";
-import Reset from "../reset";
-import Search from "../search";
-import Navigation from "../navigation";
+import Sort from "../../sort";
+import Reset from "../../reset";
+import Search from "../../search";
+import Navigation from "../../navigation";
 import React, { useState } from "react";
-import ActionButton from "../actionButton";
-import OriginDropdown from "../originDropdown";
+import ActionButton from "../../actionButton";
+import OriginDropdown from "../../originDropdown";
 
 const categoriesList = [
-  "Knowledge",
-  "Machinery",
-  "Software",
-  "Electronics",
-  "Design",
-  "Processing",
-  "Woven Textile",
-  "Knit Textile",
-  "Cut & Saw",
-  "Chemical",
-  "Accounting",
+  "Fabric Cutting Pattern",
+  "Knit Print Design",
+  "Woven Print Design",
+  "Fashion",
+  "Children",
+  "Ladies",
+  "Men",
+  "Sports",
+  "Undergarment",
   "Traditional",
-  "Sustainable",
+  "Accounting",
   "Garments",
-  "Marketing",
-  "Sales",
-  "Logistics",
-  "Warehousing",
-  "Security",
-  "Purchasing",
-  "Sourcing",
-  "Fiber",
+  "Embroidery Design",
+  "T-shirt Prints",
   "Others",
 ];
 
-const Consultant = () => {
+const Design = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
 
   const handleCategory = (item) => {
@@ -76,11 +68,11 @@ const Consultant = () => {
         <div>
           <div className="flex flex-col lg:flex-row justify-between gap-6 md:gap-14">
             <div className="flex justify-between gap-10">
-              <Navigation t2={"Consultant"} />
+              <Navigation t2={"Design"} />
               <OriginDropdown />
             </div>
             <div className="flex justify-between md:justify-end lg:justify-between gap-4">
-              <ActionButton label={"Upload Consultant Offers"} href={""} />
+              <ActionButton label={"Upload Desing Offers"} href={""} />
             </div>
           </div>
           <div className="flex flex-wrap gap-4 justify-between  mt-4">
@@ -94,4 +86,4 @@ const Consultant = () => {
   );
 };
 
-export default Consultant;
+export default Design;

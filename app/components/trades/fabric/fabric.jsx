@@ -1,13 +1,13 @@
 "use client";
 
-import Sort from "../sort";
-import Reset from "../reset";
-import Search from "../search";
-import Navigation from "../navigation";
+import Sort from "../../sort";
+import Reset from "../../reset";
+import Search from "../../search";
+import Navigation from "../../navigation";
 import React, { useState } from "react";
-import PriceFilter from "../priceFilter";
-import ActionButton from "../actionButton";
-import OriginDropdown from "../originDropdown";
+import PriceFilter from "../../priceFilter";
+import ActionButton from "../../actionButton";
+import OriginDropdown from "../../originDropdown";
 
 const categoriesList = [
   "Cotton",

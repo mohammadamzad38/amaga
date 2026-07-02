@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FaChevronDown, FaSearch } from "react-icons/fa";
 
 const STAPLE_OPTIONS = [
@@ -16,6 +16,10 @@ const STAPLE_OPTIONS = [
 export default function StapleDropdown({ value, onChange }) {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState(value || "");
+
+  useEffect(() => {
+    setInput(value || "");
+  }, [value]);
 
   const filtered = useMemo(() => {
     return STAPLE_OPTIONS.filter((item) =>
@@ -39,7 +43,11 @@ export default function StapleDropdown({ value, onChange }) {
             setInput(e.target.value);
             setOpen(true);
           }}
-          onFocus={() => setOpen(true)}
+          onFocus={() => {
+            setInput("");
+            onChange?.("");
+            setOpen(true);
+          }}
           placeholder="Staple"
           className="w-full border border-gray-300 rounded px-3 py-2 pr-10 text-sm outline-none"
         />

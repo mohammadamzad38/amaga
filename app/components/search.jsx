@@ -1,21 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PiMagnifyingGlassBold } from "react-icons/pi";
 
-/**
- * SearchInput
- * Pill-shaped search bar with a vertical divider and search icon button,
- * matching the reference screenshot.
- *
- * <SearchInput onSearch={(value) => console.log(value)} placeholder="Search" />
- */
 export default function SearchInput({
-  placeholder = "Search",
   onSearch,
+  resetSignal,
   className = "",
+  placeholder = "Search",
+  value: externalValue = "",
 }) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(externalValue);
+
+  useEffect(() => {
+    setValue(externalValue);
+  }, [externalValue]);
+
+  useEffect(() => {
+    if (resetSignal !== undefined) setValue("");
+  }, [resetSignal]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

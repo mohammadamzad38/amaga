@@ -20,8 +20,6 @@ const Page = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const { loading, logIn, signInWithGoogle, signinWithFacebook } = useAuth();
 
-  console.log(redirect, "what redirect")
-
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMessage("");

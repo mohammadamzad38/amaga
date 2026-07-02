@@ -1,9 +1,9 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import Navigation from "./navigation";
-import ActionButton from "./actionButton";
 import Link from "next/link";
+import Navigation from "../../navigation";
+import { usePathname } from "next/navigation";
+import ActionButton from "../../actionButton";
 
 export default function FiberMiddleBar() {
   const pathname = usePathname();

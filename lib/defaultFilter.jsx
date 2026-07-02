@@ -22,7 +22,7 @@ export const filters = {
     portfolio: "portfolio_type=1",
     consultant: "portfolio_type=2",
     job: "",
-    garment: "",
+    garment: "user_id IN('116', '1257', '1258', '59', '8054', '8055', '8156')",
     "market-knowledge":
       "user_id IN('116','127','507','10','59','7926','6550','8055')",
     logistic: "",

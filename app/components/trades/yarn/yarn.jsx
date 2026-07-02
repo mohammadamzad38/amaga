@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import Sort from "../sort";
-import Reset from "../reset";
-import Search from "../search";
-import Navigation from "../navigation";
-import ActionButton from "../actionButton";
-import OriginDropDown from "../originDropdown";
-import YarnFilter from "../yarnFilter";
+import Sort from "../../sort";
+import Reset from "../../reset";
+import Search from "../../search";
+import Navigation from "../../navigation";
+import ActionButton from "../../actionButton";
+import OriginDropDown from "../../originDropdown";
+import YarnFilter from "./yarnFilter";
 
 const Yarn = () => {
   const [fiber, setFiber] = useState([]);

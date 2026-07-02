@@ -1,6 +1,6 @@
 "use client";
 
-import PriceFilter from "./priceFilter";
+import PriceFilter from "../../priceFilter";
 
 const fiberOptions = [
   "Jute",

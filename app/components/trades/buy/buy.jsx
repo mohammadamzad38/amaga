@@ -1,10 +1,10 @@
 "use client";
 
-import Reset from "../reset";
-import Search from "../search";
+import Reset from "../../reset";
+import Search from "../../search";
 import Image from "next/image";
-import ActionButton from "../actionButton";
-import SocialShare from "../../home/socialShare/socialShare";
+import ActionButton from "../../actionButton";
+import SocialShare from "../../../home/socialShare/socialShare";
 
 export default function Buy() {
   const buyers = [

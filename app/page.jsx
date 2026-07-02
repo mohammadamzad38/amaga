@@ -1,9 +1,9 @@
-import CoverText from "./home/coverBanner/coverText";
-import QuickAccess from "./home/coverBanner/quickAccess";
-import AgamaMap from "./home/agamaMap/agamaMap";
 import Post from "./home/post/post";
 import Saller from "./Home/saller/saller";
 import Support from "./home/support/support";
+import AgamaMap from "./home/agamaMap/agamaMap";
+import CoverText from "./home/coverBanner/coverText";
+import QuickAccess from "./home/coverBanner/quickAccess";
 
 export default function Home() {
   return (
@@ -12,8 +12,22 @@ export default function Home() {
         <CoverText />
         <QuickAccess />
         <AgamaMap />
-        <Post title="Recent Posts" type="fiber" mode="recent" />
-        <Post title="Popular Posts" type="fiber" mode="popular" />
+        <Post
+          title="Recent Posts"
+          query={{
+            type: "fiber",
+            mode: "recent",
+            top: 4,
+          }}
+        />
+        <Post
+          title="Popular Posts"
+          query={{
+            type: "fiber",
+            mode: "popular",
+            top: 4,
+          }}
+        />
         <Saller />
         <Support />
       </div>

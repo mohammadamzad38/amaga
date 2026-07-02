@@ -14,22 +14,29 @@ const protectedRoutes = [
 ];
 
 const PrivateRoute = ({ children }) => {
-  const { token } = useAuth();
+  const { token, isInitialized } = useAuth();
+
   const pathname = usePathname();
   const router = useRouter();
 
   const isProtected = protectedRoutes.some((path) => pathname.startsWith(path));
 
   useEffect(() => {
+    // Wait until auth is restored from localStorage
+    if (!isInitialized) return;
+
     if (isProtected && !token) {
       router.replace(`/login?redirect=${encodeURIComponent(pathname)}`);
     }
-  }, [token, pathname, isProtected, router]);
+  }, [isInitialized, token, pathname, isProtected, router]);
+
+  if (!isInitialized) {
+    return null; // অথবা Loading...
+  }
 
   return (
     <>
       {pathname !== "/" && <CategoryNav />}
-
       {children}
     </>
   );

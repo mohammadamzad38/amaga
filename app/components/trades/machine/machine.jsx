@@ -1,32 +1,29 @@
 "use client";
 
-import Sort from "../sort";
-import Reset from "../reset";
-import Search from "../search";
-import Navigation from "../navigation";
+import Sort from "../../sort";
+import Reset from "../../reset";
+import Search from "../../search";
 import React, { useState } from "react";
-import ActionButton from "../actionButton";
-import OriginDropdown from "../originDropdown";
+import Navigation from "../../navigation";
+import PriceFilter from "../../priceFilter";
+import ActionButton from "../../actionButton";
 
 const categoriesList = [
-  "Fabric Cutting Pattern",
-  "Knit Print Design",
-  "Woven Print Design",
-  "Fashion",
-  "Children",
-  "Ladies",
-  "Men",
-  "Sports",
-  "Undergarment",
-  "Traditional",
-  "Accounting",
-  "Garments",
-  "Embroidery Design",
-  "T-shirt Prints",
+  "Ginnery Machines",
+  "Lubricants",
+  "Bearing",
+  "Belts",
+  "Adhesives",
+  "Machine Parts",
+  "Chemicals",
+  "Machinery",
+  "Textile Wax",
+  "Dyes & Chemicals",
   "Others",
 ];
 
-const Design = () => {
+const Machine = () => {
+  const [priceFilter, setPriceFilter] = useState("low_to_high");
   const [selectedCategories, setSelectedCategories] = useState([]);
 
   const handleCategory = (item) => {
@@ -59,26 +56,37 @@ const Design = () => {
                   {item}
                 </label>
               ))}
-            </div> 
+            </div>
           </div>
+
+          <PriceFilter value={priceFilter} onChange={setPriceFilter} />
 
           {/* <QuerryCard value={buyer} className={""} /> */}
         </div>
 
-        <div>
-          <div className="flex flex-col lg:flex-row justify-between gap-6 md:gap-14">
-            <div className="flex justify-between gap-10">
-              <Navigation t2={"Design"} />
-              <OriginDropdown />
-            </div>
-            <div className="flex justify-between md:justify-end lg:justify-between gap-4">
-              <ActionButton label={"Upload Desing Offers"} href={""} />
+        <div className="flex flex-col">
+          <div className="flex flex-col md:flex-row gap-4 justify-between w-full">
+            <Navigation t2="Machinery" />
+
+            <div className="flex items-center gap-4">
+              <ActionButton
+                label="Edit as a Supplier"
+                href="/trade/upload/supplier"
+              />
+              <ActionButton
+                label="Upload Machinery Offers"
+                href="/trade/upload/machinery"
+              />
             </div>
           </div>
-          <div className="flex flex-wrap gap-4 justify-between  mt-4">
+
+          <div className="flex flex-wrap gap-4 justify-center md:justify-between mt-8 items-center">
             <Search />
-            <Reset />
-            <Sort />
+
+            <div className="flex items-center gap-10 md:gap-4">
+              <Reset />
+              <Sort />
+            </div>
           </div>
         </div>
       </div>
@@ -86,4 +94,4 @@ const Design = () => {
   );
 };
 
-export default Design;
+export default Machine;

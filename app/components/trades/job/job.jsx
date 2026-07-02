@@ -1,29 +1,34 @@
 "use client";
 
-import Sort from "../sort";
-import Reset from "../reset";
-import Search from "../search";
-import Navigation from "../navigation";
+import Sort from "../../sort";
+import Reset from "../../reset";
+import Search from "../../search";
 import React, { useState } from "react";
-import PriceFilter from "../priceFilter";
-import ActionButton from "../actionButton";
-import OriginDropdown from "../originDropdown";
+import Navigation from "../../navigation";
+import ActionButton from "../../actionButton";
+import OriginDropdown from "../../originDropdown";
 
 const categoriesList = [
-  "Outwear",
-  "Pants/Botoms",
-  "Fabric",
-  "Basic Knit",
+  "Fabric Cutting Pattern",
+  "Knit Print Design",
+  "Woven Print Design",
+  "Fashion",
+  "Children",
+  "Ladies",
+  "Men",
+  "Sports",
   "Undergarment",
-  "Design Story/Concept",
-  "Headwear",
-  "T-shirt",
-  "Pre-owned",
+  "Traditional",
+  "Accounting",
+  "Garments",
+  "Embroidery Design",
+  "T-shirt Prints",
   "Others",
 ];
 
-const Garments = () => {
-  const [priceFilter, setPriceFilter] = useState("low_to_high");
+const JobType = ["Full Time", "Part Time"];
+
+const Job = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
 
   const handleCategory = (item) => {
@@ -59,18 +64,37 @@ const Garments = () => {
             </div>
           </div>
 
-          <PriceFilter value={priceFilter} onChange={setPriceFilter} />
+          <div className="bg-white p-4">
+            <h2 className="text-sm font-semibold mb-3">JOB TYPE</h2>
+            <div className="space-y-2 max-h-50 overflow-y-auto">
+              {JobType.map((item) => (
+                <label
+                  key={item}
+                  className="flex items-center max-w-lg gap-2 text-sm cursor-pointer"
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedCategories.includes(item)}
+                    onChange={() => handleCategory(item)}
+                    className="accent-green-500 w- h-4"
+                  />
+                  {item}
+                </label>
+              ))}
+            </div>
+          </div>
 
           {/* <QuerryCard value={buyer} className={""} /> */}
         </div>
 
         <div>
           <div className="flex flex-col lg:flex-row justify-between gap-6 md:gap-14">
-            <Navigation t2={"garments"} />
-
+            <div className="flex justify-between gap-10">
+              <Navigation t2={"Job"} />
+              <OriginDropdown />
+            </div>
             <div className="flex justify-between md:justify-end lg:justify-between gap-4">
-              <ActionButton label={"Edit as a Supplier"} href={""} />
-              <ActionButton label={"Upload Garments Offers"} href={""} />
+              <ActionButton label={"Upload Job Offers"} href={""} />
             </div>
           </div>
           <div className="flex flex-wrap gap-4 justify-between  mt-4">
@@ -84,4 +108,4 @@ const Garments = () => {
   );
 };
 
-export default Garments;
+export default Job;
