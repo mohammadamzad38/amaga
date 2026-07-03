@@ -12,40 +12,20 @@ import StapleDropdown from "../../stapleDropdown";
 import OriginDropdown from "../../originDropdown";
 import React, { useEffect, useState } from "react";
 import { useData } from "../../../../context/DataContext";
+import useLocalStorageState from "../../../../lib/storage";
 
 const Fiber = () => {
   const { getAllPosts } = useData();
-  const [grade, setGrade] = useState("");
   const [meta, setMeta] = useState(null);
-  const [staple, setStaple] = useState("");
-  const [origin, setOrigin] = useState("");
-  const [search, setSearch] = useState("");
-  const [sortt, setSort] = useState("id desc");
   const [loading, setLoading] = useState(true);
   const [fiberData, setFiberData] = useState([]);
   const [resetSignal, setResetSignal] = useState(0);
 
-  useEffect(() => {
-    const savedSort = localStorage.getItem("sort");
-    const savedGrade = localStorage.getItem("grade");
-    const savedStaple = localStorage.getItem("staple");
-    const savedOrigin = localStorage.getItem("origin");
-    const savedSearch = localStorage.getItem("search");
-
-    if (savedSort) setSort(savedSort);
-    if (savedGrade) setGrade(savedGrade);
-    if (savedStaple) setStaple(savedStaple);
-    if (savedOrigin) setOrigin(savedOrigin);
-    if (savedSearch) setSearch(savedSearch);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("sort", sortt);
-    localStorage.setItem("grade", grade);
-    localStorage.setItem("staple", staple);
-    localStorage.setItem("search", search);
-    localStorage.setItem("origin", origin);
-  }, [sortt, grade, staple, origin, search]);
+  const [grade, setGrade] = useLocalStorageState("fiber_grade", "");
+  const [staple, setStaple] = useLocalStorageState("fiber_staple", "");
+  const [origin, setOrigin] = useLocalStorageState("fiber_origin", "");
+  const [search, setSearch] = useLocalStorageState("fiber_search", "");
+  const [sortt, setSort] = useLocalStorageState("fiber_sort", "id desc");
 
   useEffect(() => {
     let mounted = true;
@@ -93,13 +73,8 @@ const Fiber = () => {
     setSearch("");
     setStaple("");
     setSort("id desc");
-    setResetSignal((n) => n + 1);
 
-    localStorage.removeItem("origin");
-    localStorage.removeItem("grade");
-    localStorage.removeItem("staple");
-    localStorage.removeItem("search");
-    localStorage.removeItem("sort");
+    setResetSignal((n) => n + 1);
   };
 
   return (

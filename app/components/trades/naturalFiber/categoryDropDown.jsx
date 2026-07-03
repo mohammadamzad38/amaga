@@ -23,14 +23,13 @@ export default function CategoryDropdown({
     if (open && buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
       setCoords({
-        top: rect.bottom + window.scrollY + 4, // 4px gap below button
+        top: rect.bottom + window.scrollY + 4,
         left: rect.left + window.scrollX,
         width: rect.width,
       });
     }
   }, [open]);
 
-  // Reposition on scroll/resize while open
   useEffect(() => {
     if (!open) return;
     const updatePosition = () => {

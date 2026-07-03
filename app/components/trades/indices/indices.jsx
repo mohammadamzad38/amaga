@@ -8,28 +8,17 @@ import Navigation from "../../navigation";
 import { useEffect, useState } from "react";
 import FiberNavBTN from "../fiber/fiberNavBTN";
 import { useData } from "../../../../context/DataContext";
+import useLocalStorageState from "../../../../lib/storage";
 
 export default function IndicesCharts() {
   const { getAllPosts } = useData();
   const [meta, setMeta] = useState(null);
-  const [search, setSearch] = useState("");
   const [indices, setIndices] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [sortt, setSort] = useState("id desc");
   const [resetSignal, setResetSignal] = useState(0);
 
-  useEffect(() => {
-    const savedSort = localStorage.getItem("sort");
-    const savedSearch = localStorage.getItem("search");
-
-    if (savedSort) setSort(savedSort);
-    if (savedSearch) setSearch(savedSearch);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("sort", sortt);
-    localStorage.setItem("search", search);
-  }, [sortt, search]);
+  const [search, setSearch] = useLocalStorageState("search", "");
+  const [sortt, setSort] = useLocalStorageState("sort", "id desc");
 
   useEffect(() => {
     let mounted = true;
@@ -67,10 +56,8 @@ export default function IndicesCharts() {
   const handlereset = () => {
     setSearch("");
     setSort("id desc");
-    setResetSignal((n) => n + 1);
 
-    localStorage.removeItem("sort");
-    localStorage.removeItem("search");
+    setResetSignal((n) => n + 1);
   };
 
   return (

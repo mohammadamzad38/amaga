@@ -3,8 +3,8 @@
 import React from "react";
 
 const options = [
-  { label: "Price low to high", value: "low_to_high" },
-  { label: "Price high to low", value: "high_to_low" },
+  { label: "Price low to high", value: "price asc" },
+  { label: "Price high to low", value: "price desc" },
   { label: "Price Negotiable", value: "negotiable" },
 ];
 
@@ -17,7 +17,7 @@ export default function PriceFilter({ value, onChange }) {
         {options.map((item) => (
           <label
             key={item.value}
-            className="flex items-center gap-2 cursor-pointer text-sm"
+            className="flex items-center gap-2 cursor-pointer text-xs"
           >
             <input
               type="radio"

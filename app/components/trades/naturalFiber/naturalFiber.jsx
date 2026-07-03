@@ -3,42 +3,26 @@
 import Sort from "../../sort";
 import Reset from "../../reset";
 import SearchInput from "../../search";
-import { FaAngleUp } from "react-icons/fa6";
-import { FaAngleDown } from "react-icons/fa6";
 import FiberNavBTN from "../fiber/fiberNavBTN";
 import CategoryDropdown from "./categoryDropDown";
 import React, { useEffect, useState } from "react";
 import FiberMiddleBar from "../fiber/fiberMiddleBar";
 import { useData } from "../../../../context/DataContext";
 import ViewCard from "../manMadeFiber/viewCard";
- 
+import useLocalStorageState from "../../../../lib/storage";
+
 const NaturalFiber = () => {
   const { getAllPosts } = useData();
   const [meta, setMeta] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("id desc");
   const [loading, setLoading] = useState(true);
-  const [category, setCategory] = useState("");
   const [resetSignal, setResetSignal] = useState(0);
   const [naturalFiber, setNaturalFiber] = useState([]);
 
+  const [search, setSearch] = useLocalStorageState("natural_search", "");
+  const [sort, setSort] = useLocalStorageState("natural_sort", "id desc");
+  const [category, setCategory] = useLocalStorageState("natural_category", "");
+
   const categories = ["Jute", "Flax", "Others"];
-  useEffect(() => {
-    const saveSort = localStorage.getItem("sort");
-    const saveSearch = localStorage.getItem("search");
-    const saveCategory = localStorage.getItem("category");
-
-    if (saveSort) setSort(saveSort);
-    if (saveSearch) setSearch(saveSearch);
-    if (saveCategory) setCategory(saveCategory);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("sort", sort);
-    localStorage.setItem("search", search);
-    localStorage.setItem("category", category);
-  }, [sort, search, category]);
 
   useEffect(() => {
     let mounted = true;
@@ -80,11 +64,8 @@ const NaturalFiber = () => {
     setSearch("");
     setCategory("");
     setSort("id desc");
-    setResetSignal((n) => n + 1);
 
-    localStorage.removeItem("search");
-    localStorage.removeItem("category");
-    localStorage.removeItem("sort");
+    setResetSignal((n) => n + 1);
   };
 
   return (

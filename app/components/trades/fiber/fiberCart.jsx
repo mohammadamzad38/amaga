@@ -85,7 +85,7 @@ const fiberCart = ({ fiberData, loading }) => {
               </div>
 
               <div className="flex justify-center">
-                <button className="mt-auto w-auto rounded-3xl bg-[#1DBF74] px-4 py-2 text-sm font-bold text-white transition hover:bg-green-600">
+                <button className="mt-auto cursor-pointer w-auto rounded-3xl bg-[#1DBF74] px-4 py-2 text-sm font-bold text-white transition hover:bg-green-600">
                   Contact Supplier
                 </button>
               </div>

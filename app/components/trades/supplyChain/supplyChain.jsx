@@ -7,38 +7,22 @@ import Search from "../../search";
 import FiberNavBTN from "../fiber/fiberNavBTN";
 import ActionButton from "../../actionButton";
 import OriginDropDown from "../../originDropdown";
+import SupplyCard from "./supplyCard";
 import SupplyBTN from "./supplyBTN";
 import { useData } from "../../../../context/DataContext";
+import useLocalStorageState from "../../../../lib/storage";
 
 const SupplyChain = () => {
   const { getAllPosts } = useData();
-  const [tag, setTag] = useState("");
   const [meta, setMeta] = useState(null);
-  const [origin, setOrigin] = useState("");
-  const [search, setSearch] = useState("");
-  const [sortt, setSort] = useState("id desc");
-  const [loading, setLoading] = useState(true);
   const [supply, setSupply] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [resetSignal, setResetSignal] = useState(0);
 
-  useEffect(() => {
-    const savedSort = localStorage.getItem("sort");
-    const savedOrigin = localStorage.getItem("origin");
-    const savedSearch = localStorage.getItem("search");
-    const savedtag = localStorage.getItem("tag");
-
-    if (savedSort) setSort(savedSort);
-    if (savedOrigin) setOrigin(savedOrigin);
-    if (savedSearch) setSearch(savedSearch);
-    if (savedtag) setTag(savedtag);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("sort", sortt);
-    localStorage.setItem("search", search);
-    localStorage.setItem("origin", origin);
-    localStorage.setItem("tag", tag);
-  }, [sortt, origin, search, tag]);
+  const [tag, setTag] = useLocalStorageState("tag_supply", "");
+  const [origin, setOrigin] = useLocalStorageState("origin_supply", "");
+  const [search, setSearch] = useLocalStorageState("search_supply", "");
+  const [sortt, setSort] = useLocalStorageState("sort_supply", "id desc");
 
   useEffect(() => {
     let mounted = true;
@@ -47,7 +31,7 @@ const SupplyChain = () => {
       setLoading(true);
 
       const filters = ["status=1"];
-      if (origin) filters.push(`origin='${origin}'`);
+      if (origin) filters.push(`country='${origin}'`);
 
       const result = await getAllPosts({
         type: "supply-chain",
@@ -83,12 +67,8 @@ const SupplyChain = () => {
     setSearch("");
     setTag("");
     setSort("id desc");
-    setResetSignal((n) => n + 1);
 
-    localStorage.removeItem("origin");
-    localStorage.removeItem("search");
-    localStorage.removeItem("sort");
-    localStorage.removeItem("tag");
+    setResetSignal((n) => n + 1);
   };
 
   console.log("this is supply", supply);
@@ -110,6 +90,9 @@ const SupplyChain = () => {
           <Reset onReset={handleReset} />
           <Sort sorted={sortt} setSorted={setSort} />
         </div>
+      </div>
+      <div className="py-10">
+        <SupplyCard cardData={supply} />
       </div>
     </div>
   );

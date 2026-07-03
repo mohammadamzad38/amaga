@@ -1,15 +1,23 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FaChevronDown, FaSearch } from "react-icons/fa";
 
-export default function OriginDropdown({ value, onChange }) {
+export default function OriginDropdown({
+  value = "",
+  onChange,
+  placeholder = "Origin",
+}) {
   const [open, setOpen] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [search, setSearch] = useState("");
   const [options, setOptions] = useState([]);
-  const [input, setInput] = useState(value || "");
 
+  const inputRef = useRef(null);
+
+  // Load countries only once
   useEffect(() => {
-    const fetchCountries = async () => {
+    async function fetchCountries() {
       try {
         const res = await fetch(
           "https://countriesnow.space/api/v0.1/countries/positions",
@@ -24,71 +32,101 @@ export default function OriginDropdown({ value, onChange }) {
       } catch (err) {
         console.error("Failed to load countries", err);
       }
-    };
+    }
 
     fetchCountries();
   }, []);
 
-  useEffect(() => {
-    setInput(value || "");
-  }, [value]);
-
   const filtered = useMemo(() => {
-    return options.filter((item) =>
-      item.toLowerCase().includes(input.toLowerCase()),
-    );
-  }, [input, options]);
+    if (!search.trim()) return options;
 
-  const handleSelect = (item) => {
-    onChange(item);
-    setInput(item);
+    return options.filter((country) =>
+      country.toLowerCase().includes(search.toLowerCase()),
+    );
+  }, [search, options]);
+
+  const handleOpen = () => {
+    setEditing(true);
+    setSearch("");
+    setOpen(true);
+
+    requestAnimationFrame(() => {
+      inputRef.current?.focus();
+    });
+  };
+
+  const handleSelect = (country) => {
+    onChange?.(country);
+
     setOpen(false);
+    setEditing(false);
+    setSearch("");
   };
 
   return (
-    <div className="flex flex-col gap-1 w-full max-w-30 relative">
+    <div className="relative w-full max-w-36">
       <div className="relative">
         <input
-          value={input}
-          onChange={(e) => {
-            setInput(e.target.value);
-            setOpen(true);
+          ref={inputRef}
+          value={editing ? search : value}
+          readOnly={!editing}
+          placeholder={placeholder}
+          onClick={() => {
+            if (!editing) handleOpen();
           }}
-          onFocus={() => {
-            setInput("");
-            onChange?.("");
-            setOpen(true);
-          }}
-          placeholder="Origin"
-          className="w-full border border-gray-300 rounded px-3 py-2 pr-10 text-sm outline-none"
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full border border-gray-300 rounded px-3 py-2 pr-10 text-sm outline-none bg-white cursor-pointer"
         />
 
-        <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
-          {open ? <FaSearch size={14} /> : <FaChevronDown size={14} />}
-        </div>
+        <button
+          type="button"
+          onClick={() => {
+            if (open) {
+              setOpen(false);
+              setEditing(false);
+              setSearch("");
+            } else {
+              handleOpen();
+            }
+          }}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+        >
+          {editing ? <FaSearch size={14} /> : <FaChevronDown size={14} />}
+        </button>
       </div>
 
       {open && (
-        <div className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded shadow-md z-50 max-h-48 overflow-y-auto">
-          {filtered.length > 0 ? (
-            filtered.map((country) => (
-              <div
-                key={country}
-                onClick={() => handleSelect(country)}
-                className="px-3 py-2 text-xs cursor-pointer hover:bg-green-100"
-              >
-                {country}
-              </div>
-            ))
-          ) : (
-            <div className="px-3 py-2 text-xs text-gray-500">
-              No results found
-            </div>
-          )}
-        </div>
-      )}
+        <>
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => {
+              setOpen(false);
+              setEditing(false);
+              setSearch("");
+            }}
+          />
 
-      {open && <div className="fixed inset-0" onClick={() => setOpen(false)} />}
+          <div className="absolute left-0 top-full mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg z-50 max-h-56 overflow-y-auto">
+            {filtered.length ? (
+              filtered.map((country) => (
+                <div
+                  key={country}
+                  onClick={() => handleSelect(country)}
+                  className={`px-3 py-2 text-sm cursor-pointer hover:bg-green-100 ${
+                    value === country ? "bg-green-100 font-semibold" : ""
+                  }`}
+                >
+                  {country}
+                </div>
+              ))
+            ) : (
+              <div className="px-3 py-2 text-sm text-gray-500">
+                No results found
+              </div>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 }

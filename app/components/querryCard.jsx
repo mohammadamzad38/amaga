@@ -12,7 +12,6 @@ const QuerryCard = ({ value, className }) => {
         spaceBetween={16}
         slidesPerView={1}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
-        loop={true}
         breakpoints={{
           640: { slidesPerView: 1 },
           1024: { slidesPerView: 2 },
