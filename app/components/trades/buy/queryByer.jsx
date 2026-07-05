@@ -4,14 +4,14 @@ import React from "react";
 
 const QueryBuyer = ({ value }) => {
   return (
-    <div>
+    <div className="space-y-4 ">
       {value.map((item, idx) => (
         <Link
           key={idx}
           href="/trade/buy"
-          className="block shadow p-4 hover:shadow-lg transition h-full"
+          className="block shadow p-4 bg-white hover:shadow-lg transition h-full"
         >
-          <div className="flex overflow-hidden gap-4">
+          <div className="flex justify-between overflow-hidden gap-4">
             <div className="flex gap-2">
               <Image
                 alt={item.username}

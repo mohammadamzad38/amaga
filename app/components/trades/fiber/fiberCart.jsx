@@ -13,7 +13,7 @@ const fiberCart = ({ fiberData, loading }) => {
       ) : fiberData.length === 0 ? (
         <div className="py-20 text-center">No Data Found</div>
       ) : (
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 ">
           {fiberData.map((data) => (
             <div
               key={data.id}

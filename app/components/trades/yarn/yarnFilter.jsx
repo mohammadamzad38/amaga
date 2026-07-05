@@ -73,7 +73,7 @@ const CheckboxGroup = ({ title, options, selected, onChange }) => {
     <div className="bg-white p-4">
       <h2 className="text-sm font-semibold mb-3">{title}</h2>
 
-      <div className="space-y-2 max-h-[120px] overflow-y-auto">
+      <div className="space-y-2 max-h-30 overflow-y-auto">
         {options.map((item) => (
           <label
             key={item}
@@ -105,6 +105,9 @@ export default function YarnFilter({
 
   speciality = [],
   setSpeciality = () => {},
+
+  priceValue = "",
+  onPricevalue = () => {},
 }) {
   return (
     <div>
@@ -116,7 +119,7 @@ export default function YarnFilter({
       />
 
       <div className="bg-white p-4">
-        <PriceFilter />
+        <PriceFilter value={priceValue} onChange={onPricevalue} />
       </div>
 
       <CheckboxGroup

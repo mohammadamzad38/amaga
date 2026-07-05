@@ -5,120 +5,162 @@ import Search from "../../search";
 import Image from "next/image";
 import ActionButton from "../../actionButton";
 import SocialShare from "../../../home/socialShare/socialShare";
+import { useData } from "../../../../context/DataContext";
+import { useEffect, useState } from "react";
 
 export default function Buy() {
-  const buyers = [
-    {
-      id: 1,
-      date: "19-01-2026",
-      buyer: "Yousif Mohammed",
-      image: "/images/profile.jpeg",
-      request: "Good Cotton Needed",
-      type: "Cotton Fiber",
-      category: "Fiber",
-      country: "Uzbekistan",
-      price: "$0.8",
-    },
-    {
-      id: 2,
-      date: "20-01-2026",
-      buyer: "Ahmed Ali",
-      image: "/images/profile.jpeg",
-      request: "Polyester Fiber Required",
-      type: "Polyester",
-      category: "Fiber",
-      country: "Bangladesh",
-      price: "$1.2",
-    },
-    {
-      id: 3,
-      date: "21-01-2026",
-      buyer: "John Smith",
-      image: "/images/profile.jpeg",
-      request: "Need Premium Cotton",
-      type: "Cotton Fiber",
-      category: "Fiber",
-      country: "USA",
-      price: "$1.0",
-    },
-    {
-      id: 4,
-      date: "22-01-2026",
-      buyer: "Mohammed Saeed",
-      image: "/images/profile.jpeg",
-      request: "Viscose Fiber Inquiry",
-      type: "Viscose",
-      category: "Fiber",
-      country: "UAE",
-      price: "$1.5",
-    },
-    {
-      id: 5,
-      date: "23-01-2026",
-      buyer: "David Miller",
-      image: "/images/profile.jpeg",
-      request: "Looking For Jute Fiber",
-      type: "Jute",
-      category: "Fiber",
-      country: "Germany",
-      price: "$0.9",
-    },
-    {
-      id: 6,
-      date: "24-01-2026",
-      buyer: "Rahman Karim",
-      image: "/images/profile.jpeg",
-      request: "Organic Cotton Needed",
-      type: "Organic Cotton",
-      category: "Yarn",
-      country: "Bangladesh",
-      price: "$1.3",
-    },
-    {
-      id: 7,
-      date: "25-01-2026",
-      buyer: "Michael Johnson",
-      image: "/images/profile.jpeg",
-      request: "Need Yarn Supplier",
-      type: "OE Yarn",
-      category: "Yarn",
-      country: "Canada",
-      price: "$1.7",
-    },
-    {
-      id: 8,
-      date: "26-01-2026",
-      buyer: "Ali Hassan",
-      image: "/images/profile.jpeg",
-      request: "Compact Yarn Required",
-      type: "Compact Yarn",
-      category: "Yarn",
-      country: "Pakistan",
-      price: "$1.4",
-    },
-    {
-      id: 9,
-      date: "27-01-2026",
-      buyer: "Fatima Noor",
-      image: "/images/profile.jpeg",
-      request: "Need Viscose Yarn",
-      type: "Viscose Yarn",
-      category: "Yarn",
-      country: "Turkey",
-      price: "$1.6",
-    },
-    {
-      id: 10,
-      date: "28-01-2026",
-      buyer: "Robert Wilson",
-      image: "/images/profile.jpeg",
-      request: "Looking For Cotton Supplier",
-      type: "Cotton Fiber",
-      category: "Fiber",
-      country: "UK",
-      price: "$1.1",
-    },
-  ];
+  const { getAllPosts } = useData();
+
+  const [loading, setLoading] = useState(true);
+  const [meta, setMeta] = useState(null);
+
+  const [buyers, setBuyers] = useState([]);
+  // const buyers = [
+  //   {
+  //     id: 1,
+  //     date: "19-01-2026",
+  //     buyer: "Yousif Mohammed",
+  //     image: "/images/profile.jpeg",
+  //     request: "Good Cotton Needed",
+  //     type: "Cotton Fiber",
+  //     category: "Fiber",
+  //     country: "Uzbekistan",
+  //     price: "$0.8",
+  //   },
+  //   {
+  //     id: 2,
+  //     date: "20-01-2026",
+  //     buyer: "Ahmed Ali",
+  //     image: "/images/profile.jpeg",
+  //     request: "Polyester Fiber Required",
+  //     type: "Polyester",
+  //     category: "Fiber",
+  //     country: "Bangladesh",
+  //     price: "$1.2",
+  //   },
+  //   {
+  //     id: 3,
+  //     date: "21-01-2026",
+  //     buyer: "John Smith",
+  //     image: "/images/profile.jpeg",
+  //     request: "Need Premium Cotton",
+  //     type: "Cotton Fiber",
+  //     category: "Fiber",
+  //     country: "USA",
+  //     price: "$1.0",
+  //   },
+  //   {
+  //     id: 4,
+  //     date: "22-01-2026",
+  //     buyer: "Mohammed Saeed",
+  //     image: "/images/profile.jpeg",
+  //     request: "Viscose Fiber Inquiry",
+  //     type: "Viscose",
+  //     category: "Fiber",
+  //     country: "UAE",
+  //     price: "$1.5",
+  //   },
+  //   {
+  //     id: 5,
+  //     date: "23-01-2026",
+  //     buyer: "David Miller",
+  //     image: "/images/profile.jpeg",
+  //     request: "Looking For Jute Fiber",
+  //     type: "Jute",
+  //     category: "Fiber",
+  //     country: "Germany",
+  //     price: "$0.9",
+  //   },
+  //   {
+  //     id: 6,
+  //     date: "24-01-2026",
+  //     buyer: "Rahman Karim",
+  //     image: "/images/profile.jpeg",
+  //     request: "Organic Cotton Needed",
+  //     type: "Organic Cotton",
+  //     category: "Yarn",
+  //     country: "Bangladesh",
+  //     price: "$1.3",
+  //   },
+  //   {
+  //     id: 7,
+  //     date: "25-01-2026",
+  //     buyer: "Michael Johnson",
+  //     image: "/images/profile.jpeg",
+  //     request: "Need Yarn Supplier",
+  //     type: "OE Yarn",
+  //     category: "Yarn",
+  //     country: "Canada",
+  //     price: "$1.7",
+  //   },
+  //   {
+  //     id: 8,
+  //     date: "26-01-2026",
+  //     buyer: "Ali Hassan",
+  //     image: "/images/profile.jpeg",
+  //     request: "Compact Yarn Required",
+  //     type: "Compact Yarn",
+  //     category: "Yarn",
+  //     country: "Pakistan",
+  //     price: "$1.4",
+  //   },
+  //   {
+  //     id: 9,
+  //     date: "27-01-2026",
+  //     buyer: "Fatima Noor",
+  //     image: "/images/profile.jpeg",
+  //     request: "Need Viscose Yarn",
+  //     type: "Viscose Yarn",
+  //     category: "Yarn",
+  //     country: "Turkey",
+  //     price: "$1.6",
+  //   },
+  //   {
+  //     id: 10,
+  //     date: "28-01-2026",
+  //     buyer: "Robert Wilson",
+  //     image: "/images/profile.jpeg",
+  //     request: "Looking For Cotton Supplier",
+  //     type: "Cotton Fiber",
+  //     category: "Fiber",
+  //     country: "UK",
+  //     price: "$1.1",
+  //   },
+  // ];
+
+  console.log(buyers);
+  console.log(typeof buyers);
+  console.log(Array.isArray(buyers));
+  useEffect(() => {
+    let mounted = true;
+
+    async function loadBuyer() {
+      setLoading(true);
+      const result = await getAllPosts({
+        type: "buyer-post/test/too",
+        top: 9,
+        orderby: "desc",
+        skip: 1,
+        category: 0,
+      });
+      if (!mounted) return;
+
+      if (!result.error) {
+        setBuyers(result.data?.results?.data || []);
+        setMeta(result?.data?.meta || null);
+      } else {
+        setBuyers([]);
+        setMeta(null);
+      }
+
+      setLoading(false);
+    }
+
+    loadBuyer();
+    return () => {
+      mounted = false;
+    };
+  }, [getAllPosts]);
 
   return (
     <div>
@@ -131,7 +173,7 @@ export default function Buy() {
           <ActionButton label={"Upload Buy"} href={""} />
         </div>
       </div>
-      <div className="border-t-1 border-gray-500 mb-10"></div>
+      <div className="border-t border-gray-500 mb-10"></div>
       <div className="flex flex-col md:flex-row gap-5 justify-between pb-10">
         <h2 className="font-semibold">BUYER REQUESTS</h2>
 
@@ -149,19 +191,23 @@ export default function Buy() {
               <div className="flex justify-between gap-12">
                 <div className="font-bold space-y-2 md:w-30">
                   <h2 className="mb-4">Date</h2>
-                  <h4 className="text-sm font-semibold">{buyer.date}</h4>
+                  <h4 className="text-sm font-semibold">
+                    {new Date(buyer.created_at).toLocaleDateString("en-GB")}
+                  </h4>
                 </div>
 
                 <div className="md:w-50">
                   <h2 className="mb-4 font-bold">Buyer</h2>
                   <Image
-                    src={buyer.image}
-                    alt={buyer.buyer}
+                    src={"/images/profile.jpeg"}
+                    alt={buyer.username}
                     width={50}
                     height={50}
                     className="w-12 h-12 object-cover border"
                   />
-                  <h3 className="font-semibold mt-1 md:mt-3">{buyer.buyer}</h3>
+                  <h3 className="font-semibold mt-1 md:mt-3">
+                    {buyer.username}
+                  </h3>
                 </div>
               </div>
 
@@ -169,16 +215,16 @@ export default function Buy() {
               <div className="flex justify-between ">
                 <div>
                   <h2 className="mb-4 font-bold">Request</h2>
-                  <h3 className="text-sm">{buyer.request}</h3>
+                  <h3 className="text-sm">{buyer.description}</h3>
 
                   <button className="border cursor-pointer border-gray-200 mt-4 px-5 py-1 text-sm bg-white hover:bg-gray-50 transition">
-                    {buyer.type}
+                    {buyer.tags_name}
                   </button>
                 </div>
 
                 <div>
                   <h2 className="mb-4 font-bold">Category</h2>
-                  <p>{buyer.category}</p>
+                  <p>{buyer.category_name}</p>
                 </div>
               </div>
 

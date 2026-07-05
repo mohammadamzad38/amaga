@@ -13,7 +13,7 @@ const MachineCard = ({ data, loading }) => {
       ) : data.length === 0 ? (
         <div className="py-20 text-center">No Data Found</div>
       ) : (
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {data.map((data) => (
             <div
               key={data.id}
@@ -52,7 +52,7 @@ const MachineCard = ({ data, loading }) => {
                   alt="product"
                   width={500}
                   height={300}
-                  className="w-full h-35"
+                  className="w-full h-35 object-cover"
                 />
               </div>
 

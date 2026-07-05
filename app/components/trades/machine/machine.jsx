@@ -3,14 +3,14 @@
 import Sort from "../../sort";
 import Reset from "../../reset";
 import Search from "../../search";
-import React, { useEffect, useState } from "react";
+import MachineCard from "./machineCard";
+import QueryBuyer from "../buy/queryByer";
 import Navigation from "../../navigation";
 import PriceFilter from "../../priceFilter";
 import ActionButton from "../../actionButton";
+import React, { useEffect, useState } from "react";
 import useLocalStorageState from "../../../../lib/storage";
 import { useData } from "../../../../context/DataContext";
-import QueryBuyer from "../buy/queryByer";
-import MachineCard from "./machineCard";
 
 const categoriesList = [
   "Ginnery Machines",
@@ -63,8 +63,10 @@ const Machine = () => {
 
       if (!result.error) {
         setBuyers(result.data?.results?.data || []);
+        setMeta(result?.data?.meta || null);
       } else {
         setBuyers([]);
+        setMeta(null);
       }
 
       setLoading(false);

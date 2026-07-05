@@ -23,6 +23,7 @@ export function DataProvider({ children }) {
       top = 4,
       skip = 0,
       tagId,
+      tagIds,
     } = query;
 
     if (!type) {
@@ -42,6 +43,7 @@ export function DataProvider({ children }) {
       top,
       skip,
       tagId,
+      tagIds,
     };
 
     const key = JSON.stringify(payload);
