@@ -7,7 +7,7 @@ const Reset = ({ onReset }) => {
     <div>
       <button
         onClick={onReset}
-        className="px-4 cursor-pointer flex items-center gap-2 py-2 bg-white shadow rounded-md"
+        className="px-4 cursor-pointer text-xs flex items-center gap-2 py-2 bg-white shadow rounded-md"
       >
         <GrPowerReset size={15} />
         Reset

@@ -3,12 +3,12 @@
 const Sort = ({ sorted, setSorted }) => {
   return (
     <div className="flex gap-3 items-center  justify-between">
-      <div className="flex  items-center gap-2">
+      <div className="flex text-sm items-center gap-2">
         <p>Sort By</p>
         <select
           value={sorted}
           onChange={(e) => setSorted(e.target.value)}
-          className="px-3 cursor-pointer text-sm py-2 bg-white shadow outline-none rounded-md"
+          className="px-3 cursor-pointer text-xs py-2 bg-white shadow outline-none rounded-md"
         >
           <option value="id desc">New to Old</option>
           <option value="id asc">Old to New</option>

@@ -9,7 +9,7 @@ const QueryBuyer = ({ value }) => {
         <Link
           key={idx}
           href="/trade/buy"
-          className="block shadow p-4 bg-white hover:shadow-lg transition h-full"
+          className="block shadow p-4 bg-white shadow-xl rounded-lg transition h-full"
         >
           <div className="flex justify-between overflow-hidden gap-4">
             <div className="flex gap-2">
