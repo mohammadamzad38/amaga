@@ -1,8 +1,8 @@
 import Post from "./home/post/post";
-import Saller from "./Home/saller/saller";
 import Support from "./home/support/support";
 import AgamaMap from "./home/agamaMap/agamaMap";
 import CoverText from "./home/coverBanner/coverText";
+import ShopCard from "./components/shops/shop/shopCard";
 import QuickAccess from "./home/coverBanner/quickAccess";
 
 export default function Home() {
@@ -28,7 +28,7 @@ export default function Home() {
             top: 4,
           }}
         />
-        <Saller />
+        {/* <ShopCard /> */}
         <Support />
       </div>
     </div>

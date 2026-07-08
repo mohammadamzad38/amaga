@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Sort from "../../sort";
+import Image from "next/image";
 import Reset from "../../reset";
 import Search from "../../search";
 import Navigation from "../../navigation";
 import ActionButton from "../../actionButton";
 import OriginDropdown from "../../originDropdown";
-import Image from "next/image";
 import { useData } from "../../../../context/DataContext";
 import useLocalStorageState from "../../../../lib/storage";
 import ImageTT from "../../../../public/images/company-logo.png";
@@ -14,8 +14,8 @@ import ImageTT from "../../../../public/images/company-logo.png";
 const Logistic = () => {
   const { getAllPosts } = useData();
   const [meta, setMeta] = useState(null);
-  const [loading, setLoading] = useState();
   const [signal, setSignal] = useState(0);
+  const [loading, setLoading] = useState();
 
   const [logistics, setLogistics] = useState([]);
   const [search, setSearch] = useLocalStorageState("logi_search", "");
@@ -60,9 +60,9 @@ const Logistic = () => {
   }, [origin, search, sort, getAllPosts]);
 
   const handleReset = () => {
-    setSort("id desc");
     setSearch("");
     setOrigin("");
+    setSort("id desc");
     setSignal((n) => n + 1);
   };
   return (
@@ -84,9 +84,7 @@ const Logistic = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 py-10 lg:grid-cols-4 gap-6">
         {loading ? (
           <div className="col-span-full flex justify-center items-center py-20">
-            <p className="text-lg font-medium text-gray-500">
-              Loading logistics...
-            </p>
+            <p className="text-lg font-medium text-gray-500">Loading ......</p>
           </div>
         ) : logistics.length > 0 ? (
           logistics.map((item) => (

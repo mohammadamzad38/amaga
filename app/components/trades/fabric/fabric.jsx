@@ -32,8 +32,8 @@ const Fabric = () => {
   const [resetSignal, setResetSignal] = useState(0);
 
   const [orderby, setOrderby] = useLocalStorageState("id desc", []);
-  const [search, setSearch] = useLocalStorageState("fabric_search", []);
-  const [origin, setOrigin] = useLocalStorageState("fabric_origin", []);
+  const [search, setSearch] = useLocalStorageState("fabric_search", "");
+  const [origin, setOrigin] = useLocalStorageState("fabric_origin", "");
   const [category, setCategory] = useLocalStorageState("fabric_category", []);
 
   const handleCategory = (item) => {
