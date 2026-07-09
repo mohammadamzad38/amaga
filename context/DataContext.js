@@ -14,16 +14,17 @@ export function DataProvider({ children }) {
   const getAllPosts = useCallback(async (query = {}) => {
     const {
       type,
-      mode = "recent",
+      tagId,
       select,
       search,
       filter,
       expand,
-      orderby = "id desc",
+      tagIds,
       top = 4,
       skip = 0,
-      tagId,
-      tagIds,
+      category,
+      mode = "recent",
+      orderby = "id desc",
     } = query;
 
     if (!type) {
@@ -34,16 +35,17 @@ export function DataProvider({ children }) {
       filter !== undefined ? filter : (filters?.[mode]?.[type] ?? "");
 
     const payload = {
-      type,
-      select,
-      search,
-      filter: finalFilter,
-      expand,
-      orderby,
       top,
       skip,
+      type,
       tagId,
       tagIds,
+      search,
+      expand,
+      select,
+      orderby,
+      category,
+      filter: finalFilter,
     };
 
     const key = JSON.stringify(payload);

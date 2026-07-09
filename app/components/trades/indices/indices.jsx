@@ -76,7 +76,11 @@ export default function IndicesCharts() {
       </div>
 
       <div className="grid md:grid-cols-[2fr_1fr] flex-col gap-4 md:items-center md:justify-between mb-6">
-        <SearchInput resetSignal={resetSignal} onSearch={search} />
+        <SearchInput
+          resetSignal={resetSignal}
+          value={search}
+          onSearch={search}
+        />
 
         <div className="flex flex-row gap-10 justify-between">
           <Reset onReset={handlereset} />
@@ -84,7 +88,7 @@ export default function IndicesCharts() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 pb-8">
         {indices.map((item) => (
           <div
             key={item.id}

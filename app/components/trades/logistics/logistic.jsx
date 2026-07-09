@@ -32,10 +32,10 @@ const Logistic = () => {
       if (origin) filters.push(`country_of_origin='${origin}'`);
 
       const result = await getAllPosts({
-        type: "logistic",
         top: 12,
         search,
         orderby: sort,
+        type: "logistic",
         filter: filters.join(" AND "),
       });
 

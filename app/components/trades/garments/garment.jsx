@@ -182,7 +182,7 @@ const Garments = () => {
             </div>
           </div>
           <div className="my-10">
-            <GarmentsCard data={garments} />
+            <GarmentsCard data={garments} loading={loading} />
           </div>
         </div>
       </div>
