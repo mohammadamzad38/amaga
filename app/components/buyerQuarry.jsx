@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import QuerryCard from "./querryCard";
 import { GrFormPrevious } from "react-icons/gr";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { useData } from "../../context/DataContext";
 
 const BuyerQuarry = ({ query }) => {
+  const swiperRef = useRef(null);
   const { getAllPosts } = useData();
-
   const [buyer, setBuyer] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -41,11 +41,17 @@ const BuyerQuarry = ({ query }) => {
   return (
     <div className="max-w-sm lg:max-w-3xl space-y-4">
       <div className="flex gap-2">
-        <button className="bg-white rounded-full p-2 shadow cursor-pointer hover:text-[#1DBF74]">
+        <button
+          onClick={() => swiperRef.current?.slidePrev()}
+          className="bg-white rounded-full p-2 shadow cursor-pointer hover:text-[#1DBF74]"
+        >
           <GrFormPrevious size={20} />
         </button>
 
-        <button className="bg-white rounded-full p-2 shadow cursor-pointer hover:text-[#1DBF74]">
+        <button
+          onClick={() => swiperRef.current?.slideNext()}
+          className="bg-white rounded-full p-2 shadow cursor-pointer hover:text-[#1DBF74]"
+        >
           <MdOutlineNavigateNext size={20} />
         </button>
       </div>
@@ -57,7 +63,11 @@ const BuyerQuarry = ({ query }) => {
           <p className="text-sm text-gray-500 mt-2">Buy available</p>
         </div>
 
-        <QuerryCard className="flex-1 min-w-0" value={buyer} />
+        <QuerryCard
+          className="flex-1 min-w-0"
+          value={buyer}
+          swiperRef={swiperRef}
+        />
       </div>
     </div>
   );

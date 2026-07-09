@@ -71,8 +71,6 @@ const SupplyChain = () => {
     setResetSignal((n) => n + 1);
   };
 
-  console.log("this is supply", supply);
-
   return (
     <div>
       <div>

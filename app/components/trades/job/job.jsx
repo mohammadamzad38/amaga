@@ -1,15 +1,16 @@
 "use client";
 
 import Sort from "../../sort";
+import JobCard from "./jobCard";
 import Reset from "../../reset";
 import Search from "../../search";
-import React, { useEffect, useState } from "react";
 import Navigation from "../../navigation";
 import ActionButton from "../../actionButton";
 import OriginDropdown from "../../originDropdown";
-import useLocalStorageState from "../../../../lib/storage";
+import React, { useEffect, useState } from "react";
 import { useData } from "../../../../context/DataContext";
-import JobCard from "./jobCard";
+import useLocalStorageState from "../../../../lib/storage";
+import { sign } from "crypto";
 
 const categoriesList = [
   { label: "Fabric Cutting Pattern", value: 59 },
@@ -33,9 +34,10 @@ const JobType = ["Full Time", "Part Time"];
 
 const Job = () => {
   const { getAllPosts } = useData();
-  const [meta, setMeta] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [jobs, setJobs] = useState([]);
+  const [meta, setMeta] = useState(null);
+  const [signal, setSignal] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [looking, setLooking] = useLocalStorageState("looking", "");
   const [search, setSearch] = useLocalStorageState("job_search", "");
   const [jobType, setJobType] = useLocalStorageState("job_type", []);
@@ -105,10 +107,12 @@ const Job = () => {
   const handlereset = () => {
     setSearch("");
     setJobType("");
-    setcategories("");
-    setLocation("");
-    setSort("id desc");
     setLooking("");
+    setLocation("");
+    setcategories("");
+    setSort("id desc");
+
+    setSignal((n) => n + 1);
   };
 
   return (
@@ -186,12 +190,16 @@ const Job = () => {
                   <option value="2">Consultant</option>
                 </select>
               </div>
-              <Search value={search} onSearch={setSearch} />
+              <Search
+                resetSignal={signal}
+                value={search}
+                onSearch={setSearch}
+              />
               <Reset onReset={handlereset} />
               <Sort sorted={sort} setSorted={setSort} />
             </div>
             <div className="py-10">
-              <JobCard data={jobs} />
+              <JobCard data={jobs} loading={loading} />
             </div>
           </div>
         </div>

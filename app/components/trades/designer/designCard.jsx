@@ -67,9 +67,7 @@ const DesignCard = ({ data, loading }) => {
                   Category:
                   {data.category || ""}
                 </p>
-                <p className="line-clamp-2 text-gray-500">
-                  Price: {data.price}
-                </p>
+                <p className="line-clamp-2 ">Price: {data.price}</p>
               </div>
 
               <div className="mb-4 mt-3 flex items-center justify-between text-sm">
@@ -84,7 +82,7 @@ const DesignCard = ({ data, loading }) => {
 
               <div className="flex justify-center">
                 <button className="mt-auto cursor-pointer w-auto rounded-3xl bg-[#1DBF74] px-4 py-2 text-xs font-bold text-white transition hover:bg-green-600">
-                  Contact Supplier
+                  Contact
                 </button>
               </div>
             </div>

@@ -94,10 +94,10 @@ const Knowledge = () => {
           <div>
             <div className="flex flex-col lg:flex-row justify-between items-center gap-6 md:gap-14">
               <div className="flex justify-between gap-10">
-                <Navigation t2={"Design"} />
+                <Navigation t2={"Market knowledge"} />
               </div>
               <div className="flex justify-between md:justify-end lg:justify-between gap-4">
-                <ActionButton label={"Upload Desing Offers"} href={""} />
+                <ActionButton label={"Upload"} href={""} />
               </div>
             </div>
             <div className="flex flex-wrap gap-4 justify-between items-center mt-4">

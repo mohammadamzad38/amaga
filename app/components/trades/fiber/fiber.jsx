@@ -8,6 +8,7 @@ import FiberTopBar from "./fiberMiddleBar";
 import FiberCart from "../fiber/fiberCart";
 import BuyerQuarry from "../../buyerQuarry";
 import GradeDropdown from "../../gradeDropdown";
+import Pagination from "../../common/pagination";
 import StapleDropdown from "../../stapleDropdown";
 import OriginDropdown from "../../originDropdown";
 import React, { useEffect, useState } from "react";
@@ -16,6 +17,7 @@ import useLocalStorageState from "../../../../lib/storage";
 
 const Fiber = () => {
   const { getAllPosts } = useData();
+  const [page, setPage] = useState(1);
   const [meta, setMeta] = useState(null);
   const [loading, setLoading] = useState(true);
   const [fiberData, setFiberData] = useState([]);
@@ -28,24 +30,34 @@ const Fiber = () => {
   const [sortt, setSort] = useLocalStorageState("fiber_sort", "id desc");
 
   useEffect(() => {
+    setPage(1);
+  }, [search, origin, grade, staple, sortt]);
+
+  useEffect(() => {
     let mounted = true;
 
     async function loadFiberPost() {
       setLoading(true);
 
       const filters = ["type=1", "status=1"];
+      const limit = 12;
+      const skip = (page - 1) * limit;
 
       if (grade) filters.push(`grade='${grade}'`);
       if (origin) filters.push(`origin='${origin}'`);
       if (staple) filters.push(`staple='${staple}'`);
 
       const result = await getAllPosts({
-        type: "fiber",
-        filter: filters.join(" AND "),
-        top: 12,
+        skip,
         search,
+        top: limit,
+        type: "fiber",
         orderby: sortt,
+        filter: filters.join(" AND "),
       });
+
+      console.log("Current page:", page);
+      console.log("Skip:", skip);
 
       if (!mounted) return;
 
@@ -65,11 +77,11 @@ const Fiber = () => {
     return () => {
       mounted = false;
     };
-  }, [origin, grade, staple, search, sortt, getAllPosts]);
+  }, [origin, grade, staple, search, sortt, getAllPosts, page]);
 
   const handleReset = () => {
-    setOrigin("");
     setGrade("");
+    setOrigin("");
     setSearch("");
     setStaple("");
     setSort("id desc");
@@ -105,6 +117,7 @@ const Fiber = () => {
       </div>
       <div className="py-14">
         <FiberCart loading={loading} fiberData={fiberData} />
+        <Pagination meta={meta} onPageChange={setPage} />
       </div>
     </div>
   );

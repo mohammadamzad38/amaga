@@ -33,6 +33,7 @@ const Design = () => {
 
   const [meta, setMeta] = useState(null);
   const [designs, setDesigns] = useState([]);
+  const [signal, setSignal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [sort, setSort] = useLocalStorageState("design_sort", "id desc");
   const [search, setSearch] = useLocalStorageState("design_search", "");
@@ -59,7 +60,7 @@ const Design = () => {
         top: 9,
         orderby: sort,
         type: "portfolio",
-        filter: filters.join(" AND "),
+        filter: filters.join(" and "),
         tagIds: category,
       });
 
@@ -86,6 +87,8 @@ const Design = () => {
     setSearch("");
     setCategory([]);
     setSort("id desc");
+
+    setSignal((n) => n + 1);
   };
   return (
     <div className=" bg-[#ECECEC] ">
@@ -124,7 +127,11 @@ const Design = () => {
               </div>
             </div>
             <div className="flex flex-wrap gap-4 justify-between  mt-4">
-              <Search value={search} onSearch={setSearch} />
+              <Search
+                resetSignal={signal}
+                value={search}
+                onSearch={setSearch}
+              />
               <Reset onReset={handleReset} />
               <Sort sorted={sort} setSorted={setSort} />
             </div>

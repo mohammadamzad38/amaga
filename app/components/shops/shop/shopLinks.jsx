@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import Sort from "../../sort";
 import Reset from "../../reset";
 import Search from "../../search";
@@ -9,6 +8,7 @@ import ShopNavBTN from "../shopsNavBTN";
 import Navigation from "../../navigation";
 import ActionButton from "../../actionButton";
 import OriginDropDown from "../../originDropdown";
+import React, { useEffect, useState } from "react";
 import { useData } from "../../../../context/DataContext";
 import useLocalStorageState from "../../../../lib/storage";
 
@@ -19,7 +19,6 @@ const ShopLinks = () => {
   const [shops, setShops] = useState([]);
   const [signal, setSignal] = useState(0);
   const [loading, setLoading] = useState(true);
-
   const [search, setSearch] = useLocalStorageState("shop_search", "");
   const [sort, setSort] = useLocalStorageState("shop_sort", "id desc");
   const [origin, setOrigin] = useLocalStorageState(
@@ -78,7 +77,7 @@ const ShopLinks = () => {
         <div className="flex flex-col md:flex-row gap-4 justify-center items-center md:justify-between">
           <ShopNavBTN />
           <div className="w-[60%] md:w-auto mb-4 md:mb-0">
-            <ActionButton href={""} label={"Upload to Supplier Directory"} />
+            <ActionButton href={""} label={"Upload Shop Link"} />
           </div>
         </div>
         <div className="border-b border-gray-400"></div>

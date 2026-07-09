@@ -65,8 +65,9 @@ const FabricCard = ({ data, loading }) => {
                 <p className="line-clamp-1">
                   Country of Origin: {data.country_of_origin}
                 </p>
+                <p className="line-clamp-1">Category: {data.category}</p>
                 <p className="line-clamp-2">Ref No: {data.ref_no}</p>
-                <p className="line-clamp-2 text-gray-500">
+                <p className="line-clamp-2 text-xs text-gray-600">
                   Price: {data.price}
                 </p>
               </div>

@@ -4,7 +4,7 @@ import React from "react";
 import Review from "../../review";
 import SocialShare from "../../../home/socialShare/socialShare";
 
-const KnowledgeCard = ({ data, loading }) => {
+const KnowledgeCard = ({ data, loading, className }) => {
   const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
   return (
     <div>
@@ -13,7 +13,9 @@ const KnowledgeCard = ({ data, loading }) => {
       ) : data.length === 0 ? (
         <div className="py-20 text-center">No Data Found</div>
       ) : (
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+        <div
+          className={`grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 ${className}`}
+        >
           {data.map((data) => (
             <div
               key={data.id}

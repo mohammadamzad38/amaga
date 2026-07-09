@@ -175,7 +175,6 @@ const Fabric = () => {
               </div>
               <div className="flex justify-between md:justify-end lg:justify-between gap-4">
                 <ActionButton label={"Register as a Supplier"} href={""} />
-                <ActionButton label={"Edit as a Supplier"} href={""} />
                 <ActionButton label={"Upload Fabric Offers"} href={""} />
               </div>
             </div>

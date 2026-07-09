@@ -32,7 +32,7 @@ const Header = () => {
               height={60}
               src={"/images/company-logo.png"}
               alt="It Agama Logo"
-              className="w-48 lg:w-60 h-full object-cover "
+              className="w-48 lg:w-50 h-full object-cover "
             />
           </Link>
           <div className="block md:hidden">
@@ -43,7 +43,7 @@ const Header = () => {
         <div className="hidden lg:block">
           <Link
             href={"/shop/shop-link"}
-            className="flex cursor-pointer items-center gap-4 border py-2.5 px-4 outline-[#1DBF74] text-[15px] font-bold rounded-sm text-[#1DBF74]"
+            className="flex cursor-pointer items-center gap-4 border py-2 px-4 outline-[#1DBF74] text-xs font-bold rounded-sm text-[#1DBF74]"
           >
             <AiOutlineShop size={20} />
             Visit Online Mall
@@ -51,10 +51,10 @@ const Header = () => {
         </div>
 
         <div className="hidden lg:block">
-          <div className="flex gap-5 text-lg md:text-sm lg:text-xl font-bold">
+          <div className="flex gap-5 text-lg leading-none font-bold">
             {navList.map((nav, idx) => (
               <Link
-                className="active:border-[#1DBF74] active:text-[#1DBF74] border hover:text-[#1DBF74]  px-5 rounded-[30px] "
+                className="active:border-[#1DBF74] active:text-[#1DBF74] py-1 border hover:text-[#1DBF74]  px-5 rounded-[30px] "
                 key={idx}
                 href={nav.path}
               >
@@ -111,7 +111,8 @@ const Header = () => {
             <div className="space-y-5">
               <Link
                 href={"/shop/shop-link"}
-                className="flex items-center mt-2 cursor-pointer gap-4 border py-2.5 px-4 outline-[#1DBF74] text-[15px] font-bold rounded-sm text-[#1DBF74]"
+                onClick={() => setShowMenu(false)}
+                className="flex items-center mt-2 cursor-pointer gap-4 border py-2 px-4 outline-[#1DBF74] text-[15px] font-bold rounded-sm text-[#1DBF74]"
               >
                 <AiOutlineShop size={25} />
                 Visit Online Mall
@@ -143,12 +144,13 @@ const Header = () => {
                   >
                     Log in
                   </Link>
-                  <button
+                  <Link
+                    href={"/register"}
                     onClick={() => setShowMenu(false)}
                     className="text-[16px] px-7 py-2.5 rounded-sm cursor-pointer bg-[#1DBF74] font-bold text-white"
                   >
                     Get Started
-                  </button>
+                  </Link>
                 </div>
               )}
             </div>

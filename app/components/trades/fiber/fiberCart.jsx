@@ -17,7 +17,7 @@ const fiberCart = ({ fiberData, loading }) => {
           {fiberData.map((data) => (
             <div
               key={data.id}
-              className="flex w-full max-w-sm flex-col bg-[#F6F6F6] px-3.75 py-6.25 shadow-xl"
+              className="flex w-full max-w-sm flex-col bg-[#F6F6F6] px-3.75 py-4 rounded-lg shadow-xl"
             >
               <div className="flex items-center justify-between">
                 <div>
@@ -48,16 +48,17 @@ const fiberCart = ({ fiberData, loading }) => {
                 </button>
               </div>
 
-              <div className="mt-8 h-60 overflow-hidden rounded-xl">
+              <div className="mt-4 h-40 overflow-hidden rounded-xl">
                 <Image
                   src="/icon/adminlogin-logo.png"
                   alt="product"
                   width={500}
                   height={300}
+                  className="object-cover w-full h-40"
                 />
               </div>
 
-              <div className="mt-3 space-y-2 text-sm font-bold md:text-base">
+              <div className="mt-3 space-y-2 text-sm font-semibold leading-none">
                 <p className="line-clamp-2">Ref No: {data.ref_no}</p>
                 <p className="line-clamp-1">Grade: {data.grade}</p>
                 <p className="line-clamp-1">Staple: {data.staple}</p>
@@ -74,7 +75,7 @@ const fiberCart = ({ fiberData, loading }) => {
                 <p className="line-clamp-1">Port of Ship:{data.port_of_ship}</p>
               </div>
 
-              <div className="mb-8 mt-3 flex items-center justify-between text-sm">
+              <div className="mb-5 mt-3 flex items-center justify-between text-sm">
                 <Review />
 
                 {/* <SocialShare
