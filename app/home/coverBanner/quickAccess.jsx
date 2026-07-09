@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState, useLayoutEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { PiLinkBold } from "react-icons/pi";
@@ -6,11 +9,7 @@ const QuickAccess = () => {
   const itemList = [
     { name: "Fiber", path: "/trade/fiber", image: "/chain/chain-item-two.png" },
     { name: "Machinery", path: "/trade/machine", image: "/chain/machine.png" },
-    {
-      name: "Yarn",
-      path: "/trade/yarn",
-      image: "/chain/chain-item-three.png",
-    },
+    { name: "Yarn", path: "/trade/yarn", image: "/chain/chain-item-three.png" },
     {
       name: "Fabric",
       path: "/trade/fabric",
@@ -32,14 +31,97 @@ const QuickAccess = () => {
     { name: "Logistic", path: "/trade/logistic", image: "/chain/box.png" },
   ];
 
+  const containerRef = useRef(null);
+  const itemRefs = useRef([]);
+  const [lines, setLines] = useState([]);
+  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+
+  const updateLines = () => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const containerRect = container.getBoundingClientRect();
+    setContainerSize({
+      width: containerRect.width,
+      height: containerRect.height,
+    });
+
+    const newLines = [];
+    for (let i = 1; i < itemList.length; i++) {
+      const prevEl = itemRefs.current[i - 1];
+      const currEl = itemRefs.current[i];
+      if (!prevEl || !currEl) continue;
+
+      const prevRect = prevEl.getBoundingClientRect();
+      const currRect = currEl.getBoundingClientRect();
+
+      if (Math.abs(prevRect.top - currRect.top) > 20) {
+        continue;
+      }
+
+      const x1 = prevRect.left - containerRect.left + prevRect.width * 0.8;
+      const y1 = prevRect.top - containerRect.top + prevRect.height * 0.9;
+
+      const x2 = currRect.left - containerRect.left + currRect.width * 0.2;
+      const y2 = currRect.top - containerRect.top + currRect.height * 0.1;
+
+      newLines.push({ x1, y1, x2, y2 });
+    }
+    setLines(newLines);
+  };
+
+  useLayoutEffect(() => {
+    updateLines();
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => updateLines();
+    window.addEventListener("resize", handleResize);
+
+    const resizeObserver = new ResizeObserver(() => updateLines());
+    if (containerRef.current) resizeObserver.observe(containerRef.current);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      resizeObserver.disconnect();
+    };
+  }, []);
+
   return (
     <div>
       <p className="text-xl font-semibold text-[#4f4f4f]">Quick Access</p>
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-flow-col auto-cols-fr items-center gap-5 py-5 mb-8">
+      <div
+        ref={containerRef}
+        className="relative grid grid-cols-2 md:grid-cols-4 lg:grid-flow-col auto-cols-fr items-center gap-5 py-5 mb-8"
+      >
+        {/* SVG overlay - only meaningful on the single-row (lg) layout */}
+        <svg
+          className="absolute inset-0 pointer-events-none z-20"
+          width={containerSize.width}
+          height={containerSize.height}
+        >
+          {lines.map((line, i) => (
+            <line
+              key={i}
+              x1={line.x1}
+              y1={line.y1}
+              x2={line.x2}
+              y2={line.y2}
+              stroke="#004cff"
+              strokeWidth="2"
+              strokeDasharray="6 5"
+              strokeLinecap="round"
+            />
+          ))}
+        </svg>
+
         {itemList.map((item, idx) => (
           <div key={idx}>
             <div className="flex justify-center">
-              <div className="relative w-18 h-18 flex items-center justify-center">
+              <div
+                ref={(el) => (itemRefs.current[idx] = el)}
+                className="relative w-18 h-18 flex items-center justify-center"
+              >
                 <div className="absolute inset-0 rounded-full border-2 border-dashed border-[#004cff] animate-[spin_10s_linear_infinite]"></div>
 
                 <Link

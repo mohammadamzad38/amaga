@@ -1,6 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 import Review from "../../review";
 import SocialShare from "../../../home/socialShare/socialShare";
 
@@ -72,7 +72,7 @@ const JobCard = ({ data, loading }) => {
 
               <div className="flex justify-center">
                 <button className="mt-auto cursor-pointer w-auto rounded-3xl bg-[#1DBF74] px-4 py-2 text-xs font-bold text-white transition hover:bg-green-600">
-                  Contact Supplier
+                  Apply
                 </button>
               </div>
             </div>
